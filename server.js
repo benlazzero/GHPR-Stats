@@ -2,7 +2,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
 const urlArray = require('./githubAuth')
-const fetchPrs = require('./fetch')
+const fetchPrs = require('./apiFetch')
 
 const server = express()
 const port = 3000
