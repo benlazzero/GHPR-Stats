@@ -17,8 +17,8 @@ server.get('/', (req, res) => {
 server.post('/', async (req, res) => {
   const closedUrls = await MakeClosedUrlsArr(req.body.url)
   const closedPrData = await FetchClosedPrs(closedUrls)
-  const allReviewers = ClosedParser(closedPrData) 
-  console.log(allReviewers)
+  const allReviewersPrs = ClosedParser(closedPrData, closedUrls) 
+  console.log('%' + allReviewersPrs)
   res.end()
 })
 

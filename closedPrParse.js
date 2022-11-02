@@ -1,5 +1,11 @@
 
 
+const GetOwnerUsername = (urls) => {
+  const repoUrl = new URL(urls[0])
+  let paths = repoUrl.pathname.split('/')
+  return paths[2]
+}
+
 /**
  * takes in the array of all the prs and returns the array with all closed&unmerged removed 
  * @param {array} closedPrArr - An array of pr json objects from github api
@@ -53,7 +59,7 @@ const GetReviewerObjects = (mergedPrsArr) => {
  * Takes in array of reviewers objects and returns all unique reviewers usernames
  * @param {array} allReviewersArr - An array of all reviewers/etc. 
  */
-const GetReviewersNames = (allReviewersArr) => {
+const GetReviewersNames = (allReviewersArr, owner) => {
   const allReviewers = allReviewersArr
   let allRevUsernames = []
   for (let i = 0; i < allReviewers.length; i++) {
@@ -63,16 +69,35 @@ const GetReviewersNames = (allReviewersArr) => {
       allRevUsernames.push(username) 
     }
   }
+
+  if (allRevUsernames.includes(owner) === false) {
+    allRevUsernames.push(owner)
+  }
   return allRevUsernames
+}
+
+const CountReviewersPrs = (revNamesArr, mergedPrsArr) => {
+  const allPrs = mergedPrsArr
+  const allNamesArr = revNamesArr
+  let totalRevsPrs = 0
+  for (let i = 0; i < allPrs.length; i++) {
+    let username = allPrs[i].user.login 
+    if (allNamesArr.includes(username)) {
+      totalRevsPrs += 1
+    }
+  }
+  return totalRevsPrs
 }
 
 
 
-const ClosedParser = (closedPrArr) => {
+const ClosedParser = (closedPrArr, urls) => {
+  const ownerUsername = GetOwnerUsername(urls)
   const mergedPrsArr = RemoveUnmergedPrs(closedPrArr)  
   const allReviewersArr = GetReviewerObjects(mergedPrsArr)
-  const allRevUsernamesArr = GetReviewersNames(allReviewersArr)
-  return allRevUsernamesArr
+  const allRevUsernamesArr = GetReviewersNames(allReviewersArr, ownerUsername)
+  const totalRevsPrs = CountReviewersPrs(allRevUsernamesArr, mergedPrsArr)
+  return Math.round((totalRevsPrs / mergedPrsArr.length) * 100)
 }
 
 module.exports = ClosedParser
