@@ -47,8 +47,7 @@ const GetAllPrData = async (urlArr) => {
       allPrs.push(prRequest)
     }
   }
-  allPrs.flat()
-  return allPrs.flat()
+  return allPrs.flat(2)
 }
 
 

@@ -1,8 +1,9 @@
 const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
-const urlArray = require('./githubAuth')
-const fetchPrs = require('./apiFetch')
+const MakeClosedUrlsArr = require('./githubAuth')
+const FetchClosedPrs = require('./apiFetch')
+const ClosedParser = require('./closedPrParse')
 
 const server = express()
 const port = 3000
@@ -14,9 +15,10 @@ server.get('/', (req, res) => {
 })
 
 server.post('/', async (req, res) => {
-  const repoUrls = await urlArray(req.body.url)
-  const prData = await fetchPrs(repoUrls)
-  console.log(prData)
+  const closedUrls = await MakeClosedUrlsArr(req.body.url)
+  const closedPrData = await FetchClosedPrs(closedUrls)
+  const allReviewers = ClosedParser(closedPrData) 
+  console.log(allReviewers)
   res.end()
 })
 
