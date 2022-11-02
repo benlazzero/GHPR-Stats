@@ -1,9 +1,19 @@
 const https = require('node:https')
-const url = require('node:url')
 
-// add some validation incase bad url
-const ValidateUrl = (usersUrl) => {
-  const unvalidatedUrl = new URL(usersUrl)
+/**
+ * minor validation checking that it's a url and 'possibly' a good github repo 
+ * @param {string} userUrl - Github url from website's input
+ */
+const ParseUrlPaths = (userUrl) => {
+  let unvalidatedUrl
+  try {
+    unvalidatedUrl = new URL(userUrl)
+  } catch (e) {
+    if (e) {
+      return []
+    }
+  }
+
   const paths = unvalidatedUrl.pathname.split('/')
   if (paths.length !== 3) {
     return []
@@ -11,8 +21,12 @@ const ValidateUrl = (usersUrl) => {
   return paths
 }
 
-const ValidateRepo = (user, repo) => {
-  const repoUrl = 'https://github.com/' + user + '/' + repo
+/**
+ * Uses the username/repo from ParseUrlPaths to check if repo exists(doesnt 404) 
+ * @param {array} pathArr - index[0] is empty, [1] is the username, and [2] is the repo name
+ */
+const ValidateRepo = (pathArr) => {
+  const repoUrl = 'https://github.com/' + pathArr[1] + '/' + pathArr[2]
   return new Promise((resolve, reject) => {
     https.get(repoUrl, (request) => {
       request.on('data', ()=> {
@@ -24,23 +38,26 @@ const ValidateRepo = (user, repo) => {
   })
 }
 
-const getUrlArray = async (user, repo) => {
-  const status = await ValidateRepo(user, repo)
-  if (await status !== 200) {
+/**
+ * Returns an array of github api endpoints to get PR's(closed), returns (x) if bad url 
+ * @param {string} userUrl - Github url from website's input
+ */
+const makeUrlArray = async (userUrl) => {
+  const pathArr = ParseUrlPaths(userUrl)
+  const statusCode = await ValidateRepo(pathArr)
+  if (await statusCode !== 200) {
     return 'issue with retriving repo, check user and name of repo.'
   } 
 
   let arrayOfUrls = []
   const href = 'https://api.github.com/repos'
-  const  path = '/' + user + '/' + repo  
-  const searchParams = '/pulls?state=closed&page='
+  const  path = '/' + pathArr[1] + '/' + pathArr[2]  
+  const searchParams = '/pulls?state=closed&per_page=100&page='
   let urlWithoutPage = href + path + searchParams
-
   for (let i = 1; i < 6; i++) {
     arrayOfUrls.push(urlWithoutPage + i) 
   }
-
   return arrayOfUrls;
 }
 
-module.exports = ValidateUrl;
+module.exports = makeUrlArray;

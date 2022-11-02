@@ -1,8 +1,8 @@
 const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
-const getPrLength = require('./fetch')
-const valUrl = require('./githubAuth')
+const urlArray = require('./githubAuth')
+const fetchPrs = require('./fetch')
 
 const server = express()
 const port = 3000
@@ -13,9 +13,10 @@ server.use(bodyParser.urlencoded({ extended: true }))
 server.get('/', (req, res) => {
 })
 
-server.post('/', (req, res) => {
-  console.log('req.body' + req.body)
-  console.log(valUrl(req.body.url))
+server.post('/', async (req, res) => {
+  const repoUrls = await urlArray(req.body.url)
+  const prData = await fetchPrs(repoUrls)
+  console.log(prData)
   res.end()
 })
 

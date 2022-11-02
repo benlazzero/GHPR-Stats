@@ -1,6 +1,7 @@
 const https = require('node:https')
-const getUrlArray = require('./githubAuth')
-const options = { headers: { 'User-Agent': 'benlazzero', 'Accept': 'application/vnd.github+json'} }
+require('dotenv').config()
+// For githubs Api
+const options = { headers: { 'User-Agent': process.env.GH_USERAGENT, 'Accept': 'application/vnd.github+json'} }
 
 const getSinglePrPage = (url) => {
   return new Promise((resolve, reject) => {
@@ -12,8 +13,8 @@ const getSinglePrPage = (url) => {
       })
 
       request.on('end', () => {
-        let prdata = JSON.parse(PRData)
-        resolve(prdata)
+        let allPrData = JSON.parse(PRData)
+        resolve(allPrData)
       })
       
     }).on('error', ()=> {reject()})
@@ -22,17 +23,16 @@ const getSinglePrPage = (url) => {
   })
 }
 
-const getAllPrData = async () => {
-  let Urls = await getUrlArray('ethereum', 'ethereum-org-website')
+const getAllPrData = async (urlArr) => {
+  let Urls = urlArr
   let totalLength = 0
   for (let i = 0; i < Urls.length; i++) {
     let PrLength = await getSinglePrPage(Urls[i])
-    console.log(PrLength[0].requested_reviewers[0].login)
-    if (await PrLength < 30) {
-      totalLength += PrLength
+    if (PrLength.length < 100) {
+      totalLength += PrLength.length
       break 
     } else {
-      totalLength += PrLength
+      totalLength += PrLength.length
     }
   }
   return totalLength
