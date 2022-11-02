@@ -6,7 +6,7 @@
 ``` 
 1. API response for 5 pages of 100 closed PR’s from x repo. 
 2. Remove all PR’s that do not have a merge_date then count total PR’s left and store amount. 
-3. Parse out all reviewers usernames and store in array. 
+3. Parse out all reviewers usernames and store in array(option to add maintainers). 
 4. If PR’s owner username is equal to a username in the reviewer array then add +1 to reviewer merge variable. 
 5. Divide reviewer merge variable total by total PR’s and round to a percentage. 
 6. Return percentage.
