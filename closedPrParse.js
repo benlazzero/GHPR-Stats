@@ -1,5 +1,7 @@
-
-
+/**
+ * Uses the url array to return the username for the repo 
+ * @param {array} urls - An array of urls that point to the github PR endpoints
+ */
 const GetOwnerUsername = (urls) => {
   const repoUrl = new URL(urls[0])
   let paths = repoUrl.pathname.split('/')
@@ -76,6 +78,11 @@ const GetReviewersNames = (allReviewersArr, owner) => {
   return allRevUsernames
 }
 
+/**
+ * Uses the array of all PRs and array of Names to return the number of PRs that are from reviewers
+ * @param {array} revNamesArr - An array of all the usernames of reviewers
+ * @param {array} mergedPrsArr - An array of all the PRs that have been merged
+ */
 const CountReviewersPrs = (revNamesArr, mergedPrsArr) => {
   const allPrs = mergedPrsArr
   const allNamesArr = revNamesArr
@@ -88,7 +95,6 @@ const CountReviewersPrs = (revNamesArr, mergedPrsArr) => {
   }
   return totalRevsPrs
 }
-
 
 
 const ClosedParser = (closedPrArr, urls) => {

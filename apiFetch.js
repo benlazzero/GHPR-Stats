@@ -51,5 +51,4 @@ const GetAllPrData = async (urlArr) => {
 }
 
 
-
 module.exports = GetAllPrData
