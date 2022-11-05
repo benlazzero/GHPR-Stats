@@ -76,6 +76,10 @@ const GetReviewerObjects = (mergedPrsArr) => {
   return allReviewers.flat()
 }
 
+/**
+ * takes in the merged Prs and returns an array of all the dates of each merge
+ * @param {array} mergedPrsArr - An array of pr json objects from github api that have been merged
+ */
 const GetPrMergeDates = (mergedPrsArr) => {
   let allPrs = mergedPrsArr
   let allDates = []
@@ -83,10 +87,13 @@ const GetPrMergeDates = (mergedPrsArr) => {
     const date = allPrs[i].merged_at.slice(0, 10)
     allDates.push(date) 
   }
-  console.log(allDates)
   return allDates
 }
 
+/**
+ * takes in an array of dates from merged prs and returns an object of key/value {date: how-many-merges}
+ * @param {array} mergeDates - an array of all the dates that have atleast one pr merge
+ */
 const GetPrMergeFrequency = (mergeDates) => {
   let allDates = mergeDates 
   let frequencyObj = {}
@@ -112,6 +119,7 @@ const GetReviewersNames = (allReviewersArr, owner, extrasArr) => {
   const allReviewers = allReviewersArr
   const allExtras = extrasArr
   let allRevUsernames = []
+
   for (let i = 0; i < allReviewers.length; i++) {
     const username = allReviewers[i].login
     let nameExists = allRevUsernames.includes(username)
@@ -153,7 +161,6 @@ const CountReviewersPrs = (revNamesArr, mergedPrsArr) => {
   return totalRevsPrs
 }
 
-
 const ClosedParser = (closedPrArr, urls, logins) => {
   const extraReviewers = parseLogins(logins) 
   const ownerUsername = GetOwnerUsername(urls)
@@ -163,7 +170,7 @@ const ClosedParser = (closedPrArr, urls, logins) => {
   const allReviewersArr = GetReviewerObjects(mergedPrsArr)
   const allRevUsernamesArr = GetReviewersNames(allReviewersArr, ownerUsername, extraReviewers)
   const totalRevsPrs = CountReviewersPrs(allRevUsernamesArr, mergedPrsArr)
-  return Math.round((totalRevsPrs / mergedPrsArr.length) * 100)
+  return (Math.round((totalRevsPrs / mergedPrsArr.length) * 100) + '--' + JSON.stringify(frequency))
 }
 
 module.exports = ClosedParser

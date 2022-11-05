@@ -26,10 +26,8 @@ server.post('/', async (req, res) => {
   }
   const closedPrData = await FetchClosedPrs(closedUrls)
   const allReviewersPrs = ClosedParser(closedPrData, closedUrls, await req.body.logins) 
-  const cookieA = cookie.serialize('value', allReviewersPrs, {
-    maxAge: 1
-  });
-  res.setHeader('Set-Cookie', cookieA)
+  const revPercent = cookie.serialize('value', allReviewersPrs, { maxAge: 5 });
+  res.setHeader('Set-Cookie', revPercent)
   res.redirect('/results')
 })
 
