@@ -2,7 +2,7 @@
 ##### A website to get information about a github repository's PR history and how welcoming they are to outside PR's.
 
 
-1. % of merged pr’s that came from non ‘reviewers’ (incomplete)
+1. % of merged pr’s that came from non ‘reviewers’ (complete)
 ``` 
 1. API response for 5 pages of 100 closed PR’s from x repo. 
 2. Remove all PR’s that do not have a merge_date then count total PR’s left and store amount. 
@@ -12,7 +12,7 @@
 6. Return percentage.
 ```
 
-2. Frequency of merges for a given time span (incomplete)
+2. Frequency of merges for a given time span (complete)
 ``` 
 1. API response for 5 pages of 100 closed PR’s from x repo. 
 2. Remove all PR’s that do not have a merge_date. 

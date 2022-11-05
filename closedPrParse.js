@@ -76,6 +76,32 @@ const GetReviewerObjects = (mergedPrsArr) => {
   return allReviewers.flat()
 }
 
+const GetPrMergeDates = (mergedPrsArr) => {
+  let allPrs = mergedPrsArr
+  let allDates = []
+  for (let i = 0; i < allPrs.length; i++) {
+    const date = allPrs[i].merged_at.slice(0, 10)
+    allDates.push(date) 
+  }
+  console.log(allDates)
+  return allDates
+}
+
+const GetPrMergeFrequency = (mergeDates) => {
+  let allDates = mergeDates 
+  let frequencyObj = {}
+  for (let i = 0; i < allDates.length; i++) {
+    let date = allDates[i]
+    let doesExist = frequencyObj.hasOwnProperty(date)
+    if (doesExist) {
+      frequencyObj[date] = frequencyObj[date] + 1
+    } else {
+      frequencyObj[date] = 1
+    }
+  }
+  return frequencyObj
+}
+
 /**
  * Takes in array of reviewers objects and returns all unique reviewers usernames
  * @param {array} allReviewersArr - An array of all reviewers/etc. 
@@ -132,6 +158,8 @@ const ClosedParser = (closedPrArr, urls, logins) => {
   const extraReviewers = parseLogins(logins) 
   const ownerUsername = GetOwnerUsername(urls)
   const mergedPrsArr = RemoveUnmergedPrs(closedPrArr)  
+  const mergeDates = GetPrMergeDates(mergedPrsArr)
+  const frequency = GetPrMergeFrequency(mergeDates)
   const allReviewersArr = GetReviewerObjects(mergedPrsArr)
   const allRevUsernamesArr = GetReviewersNames(allReviewersArr, ownerUsername, extraReviewers)
   const totalRevsPrs = CountReviewersPrs(allRevUsernamesArr, mergedPrsArr)
