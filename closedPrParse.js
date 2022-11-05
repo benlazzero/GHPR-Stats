@@ -1,4 +1,23 @@
 /**
+ * Uses user input from the form to return an array of usernames of reviewers
+ * @param {string} logins - The string from form input for adding reviewers to search for
+ */
+const parseLogins = (logins) => {
+  const usernames = logins
+  if (usernames.length > 100 || usernames.length == 0) {
+    return ''
+  }
+  const noSpaces = usernames.replace(/\s/g, '')
+  const arrOfUsernames = noSpaces.split(',')
+  for (let i = 0; i < arrOfUsernames.length; i++) {
+    if (arrOfUsernames[i].length > 39) {
+      arrOfUsernames.splice(i, 1)
+    } 
+  }
+  return arrOfUsernames
+}
+
+/**
  * Uses the url array to return the username for the repo 
  * @param {array} urls - An array of urls that point to the github PR endpoints
  */
@@ -60,21 +79,33 @@ const GetReviewerObjects = (mergedPrsArr) => {
 /**
  * Takes in array of reviewers objects and returns all unique reviewers usernames
  * @param {array} allReviewersArr - An array of all reviewers/etc. 
+ * @param {string} owner - String of the repo's owners username  
+ * @param {array} extrasArr - An array of strings of all extra reviewers usernames from form input 
  */
-const GetReviewersNames = (allReviewersArr, owner) => {
+const GetReviewersNames = (allReviewersArr, owner, extrasArr) => {
   const allReviewers = allReviewersArr
+  const allExtras = extrasArr
   let allRevUsernames = []
   for (let i = 0; i < allReviewers.length; i++) {
     const username = allReviewers[i].login
-    let ifNameExists = allRevUsernames.includes(username)
-    if (ifNameExists == false) {
+    let nameExists = allRevUsernames.includes(username)
+    if (nameExists == false) {
       allRevUsernames.push(username) 
     }
+  }
+  
+  for (let i = 0; i < allExtras.length; i++) {
+    const username = allExtras[i] 
+    let nameExists = allRevUsernames.includes(username)
+    if (nameExists == false) {
+      allRevUsernames.push(username)
+    } 
   }
 
   if (allRevUsernames.includes(owner) === false) {
     allRevUsernames.push(owner)
   }
+  
   return allRevUsernames
 }
 
@@ -97,11 +128,12 @@ const CountReviewersPrs = (revNamesArr, mergedPrsArr) => {
 }
 
 
-const ClosedParser = (closedPrArr, urls) => {
+const ClosedParser = (closedPrArr, urls, logins) => {
+  const extraReviewers = parseLogins(logins) 
   const ownerUsername = GetOwnerUsername(urls)
   const mergedPrsArr = RemoveUnmergedPrs(closedPrArr)  
   const allReviewersArr = GetReviewerObjects(mergedPrsArr)
-  const allRevUsernamesArr = GetReviewersNames(allReviewersArr, ownerUsername)
+  const allRevUsernamesArr = GetReviewersNames(allReviewersArr, ownerUsername, extraReviewers)
   const totalRevsPrs = CountReviewersPrs(allRevUsernamesArr, mergedPrsArr)
   return Math.round((totalRevsPrs / mergedPrsArr.length) * 100)
 }

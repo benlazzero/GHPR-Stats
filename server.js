@@ -13,19 +13,23 @@ server.use(express.static(path.join(__dirname, 'public')));
 server.use(bodyParser.urlencoded({ extended: true })) 
 
 server.get('/results', (req, res) => {
-  var cookies = cookie.parse(req.headers.cookie || '');
-  console.log(cookies)
-  res.send(cookies.value + 'this is the value')
+  const cookies = cookie.parse(req.headers.cookie || '');
+  res.send(cookies.value + '% --- this is the value')
 })
 
 server.post('/', async (req, res) => {
-  const closedUrls = await MakeClosedUrlsArr(req.body.url)
+  const closedUrls = await MakeClosedUrlsArr(await req.body.url)
+  if (closedUrls.length === 0) {
+    res.redirect('/')
+    res.end()
+    return
+  }
   const closedPrData = await FetchClosedPrs(closedUrls)
-  const allReviewersPrs = ClosedParser(closedPrData, closedUrls) 
-  const cookieA = cookie.serialize('value', allReviewersPrs);
-  const cookieB = cookie.serialize('rand', 'pizza');
+  const allReviewersPrs = ClosedParser(closedPrData, closedUrls, await req.body.logins) 
+  const cookieA = cookie.serialize('value', allReviewersPrs, {
+    maxAge: 1
+  });
   res.setHeader('Set-Cookie', cookieA)
-  res.setHeader('Set-Cookie', cookieB)
   res.redirect('/results')
 })
 

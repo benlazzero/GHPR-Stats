@@ -46,7 +46,7 @@ const makeUrlArray = async (userUrl) => {
   const pathArr = ParseUrlPaths(userUrl)
   const statusCode = await ValidateRepo(pathArr)
   if (await statusCode !== 200) {
-    return 'issue with retriving repo, check user and name of repo.'
+    return []
   } 
 
   let arrayOfUrls = []
