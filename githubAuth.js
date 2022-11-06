@@ -41,6 +41,7 @@ const ValidateRepo = (pathArr) => {
 /**
  * Returns an array of github api endpoints to get PR's(closed), returns (x) if bad url 
  * @param {string} userUrl - Github url from website's input
+ // TODO: either make it return an open link arr or make a new function for it
  */
 const makeUrlArray = async (userUrl) => {
   const pathArr = ParseUrlPaths(userUrl)

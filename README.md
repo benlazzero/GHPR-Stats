@@ -20,7 +20,7 @@
 4. Sort list oldest to newest. 
 5. Transpose list to key value where key is unique date for at least one merge and value is the amount of merges on that date. 6. Return list.
 ```
-3. All reviewers and their Avatars (incomplete)
+3. All reviewers and their Avatars (half-complete)
 ``` 
 1. API response for 5 pages of 100 closed PR’s from x repo. 
 2. Parses out all login fields that are from reviewers, assignee, assignees, teams and stores in list. 
