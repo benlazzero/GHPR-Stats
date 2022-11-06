@@ -7,6 +7,7 @@ class ClosedPr {
     this.mergedPulls = this.#getMergedPulls()
     this.mergeDates = this.#getPrMergeDates()
     this.adminsJson = this.#getAdminObjects()
+    this.adminNames = this.#getReviewersNames()
   }
   
   /**
@@ -89,7 +90,7 @@ class ClosedPr {
   }
   
   // Takes in array of reviewers objects, repo owner, user admin input and returns all unique reviewers usernames
-  getReviewersNames = () => {
+  #getReviewersNames = () => {
     const allReviewers = this.adminsJson
     const allExtras = this.userAdmins
     let allRevUsernames = []
@@ -113,8 +114,32 @@ class ClosedPr {
     if (allRevUsernames.includes(this.repoOwner) === false) {
       allRevUsernames.push(this.repoOwner)
     }
-    
+
     return allRevUsernames
+  }
+  
+  // uses array of admins usernames to grab avatar links from merged pulls
+  getReviewersAvatars = () => {
+    const adminNames = this.adminNames 
+    const mergedPulls = this.mergedPulls
+    let pushedAdmins = []
+    let adminAvatars = {}
+    
+    for (let i = 0; i < mergedPulls.length; i++) {
+      let name = mergedPulls[i].user.login
+      let nameIncluded = adminNames.includes(name)
+      let isPushed = pushedAdmins.includes(name)
+      if (nameIncluded && !isPushed) {
+        adminAvatars[name] = mergedPulls[i].user.avatar_url
+        pushedAdmins.push(name)
+      }
+      
+      if (adminNames.length === pushedAdmins.length) {
+        return adminAvatars
+      }
+    }
+    
+    return adminAvatars
   }
   
   // takes in an array of dates from merged prs and returns an object of key/value {date: how-many-merges}
