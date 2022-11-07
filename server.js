@@ -18,7 +18,7 @@ server.get('/results', (req, res) => {
 })
 
 server.post('/', async (req, res) => {
-  const closedUrls = await MakeClosedUrlsArr(await req.body.url)
+  const closedUrls = await MakeClosedUrlsArr(await req.body.url, await req.body.pulls)
   if (closedUrls.length === 0) {
     res.redirect('/')
     return
