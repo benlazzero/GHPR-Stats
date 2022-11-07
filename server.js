@@ -29,6 +29,8 @@ server.post('/', async (req, res) => {
   let freq = newClosedPr.getPrMergeFrequency()
   let pullPerc = newClosedPr.getReviewersPullPercent()
   let names = JSON.stringify(newClosedPr.getReviewersAvatars())
+  let avg = newClosedPr.getAvgMergeTime()
+  console.log(avg)
 
   const revPercent = cookie.serialize('value', pullPerc, {maxAge: 5});
   const revFreq = cookie.serialize('freq', freq, {maxAge: 5});

@@ -141,6 +141,26 @@ class ClosedPr {
     
     return adminAvatars
   }
+
+  // takes in merged prs and returns the average amount of days it took for them to merge
+  getAvgMergeTime = () => {
+    const mergedPulls = this.mergedPulls
+    let samples = [] 
+    let total = 0
+
+    for (let i = 0; i < mergedPulls.length; i++) {
+      let created = new Date(mergedPulls[i].created_at)
+      let merged = new Date(mergedPulls[i].merged_at)
+      let diff = Math.round((created - merged) / (1000 * 60 * 60 * 24))
+      samples.push(Math.abs(diff))
+    }
+
+    for (let i = 0; i < samples.length; i++) {
+      total += samples[i]
+    }
+
+    return Math.round(total / samples.length)
+  }
   
   // takes in an array of dates from merged prs and returns an object of key/value {date: how-many-merges}
   getPrMergeFrequency = () => {
@@ -161,7 +181,7 @@ class ClosedPr {
   // Uses the array of all PRs and array of Names to return the number of PRs that are from reviewers
   getReviewersPullPercent = () => {
     const mergedPrs = this.mergedPulls
-    const allNamesArr = this.getReviewersNames()
+    const allNamesArr = this.#getReviewersNames()
     let totalRevsPrs = 0
     for (let i = 0; i < mergedPrs.length; i++) {
       let username = mergedPrs[i].user.login 
