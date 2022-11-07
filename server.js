@@ -14,7 +14,7 @@ server.use(bodyParser.urlencoded({ extended: true }))
 
 server.get('/results', (req, res) => {
   const cookies = cookie.parse(req.headers.cookie || '');
-  res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names)
+  res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names + '<br>' + cookies.avg)
 })
 
 server.post('/', async (req, res) => {
@@ -30,13 +30,13 @@ server.post('/', async (req, res) => {
   let pullPerc = newClosedPr.getReviewersPullPercent()
   let names = JSON.stringify(newClosedPr.getReviewersAvatars())
   let avg = newClosedPr.getAvgMergeTime()
-  console.log(avg)
 
   const revPercent = cookie.serialize('value', pullPerc, {maxAge: 5});
   const revFreq = cookie.serialize('freq', freq, {maxAge: 5});
   const revNames = cookie.serialize('names', names, {maxAge: 5});
+  const revAvg = cookie.serialize('avg', avg, {maxAge: 5});
 
-  res.setHeader('Set-Cookie', [revPercent, revFreq, revNames])
+  res.setHeader('Set-Cookie', [revPercent, revFreq, revNames, revAvg])
   res.redirect('/results')
 })
 

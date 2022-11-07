@@ -145,10 +145,15 @@ class ClosedPr {
   // takes in merged prs and returns the average amount of days it took for them to merge
   getAvgMergeTime = () => {
     const mergedPulls = this.mergedPulls
+    const admins = this.adminNames
     let samples = [] 
     let total = 0
 
     for (let i = 0; i < mergedPulls.length; i++) {
+      let username = mergedPulls[i].user.login 
+      if (admins.includes(username)) {
+        continue
+      }
       let created = new Date(mergedPulls[i].created_at)
       let merged = new Date(mergedPulls[i].merged_at)
       let diff = Math.round((created - merged) / (1000 * 60 * 60 * 24))
