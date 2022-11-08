@@ -39,7 +39,7 @@
 5. Total open PRs (complete)
 6. Oldest open non draft PR (complete)
 7. Newest PR (complete)
-8. Avg PRs per week (incomplete)
+8. Avg PRs per week (complete)
 ``` 
 1. API response for 5 pages of 100 closed PR’s from x repo. 
 2. Parse out all created_at dates and store in a list. 

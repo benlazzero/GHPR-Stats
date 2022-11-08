@@ -1,3 +1,5 @@
+// TODO: abstract like the openPR file
+
 class ClosedPr {
   constructor(prArr, urlArr, userAdmins) {
     this.userAdmins = this.#parseLogins(userAdmins)
@@ -182,6 +184,67 @@ class ClosedPr {
       }
     }
     return JSON.stringify(frequencyObj)
+  }
+  
+  // takes in array of merged pulls and uses their open dates to return an average of pulls-opened-per-week
+  getAvgPrsWeekly = () => {
+    const mergedPrs = this.mergedPulls
+    const oneDay = 24 * 60 * 60 * 1000
+    let openDates = [] 
+    let diffs = []
+    for (let i = 0; i < mergedPrs.length; i++) {
+      let tempOpen = new Date(mergedPrs[i].created_at)
+      openDates.push(tempOpen)
+    }
+
+    openDates.sort((a, b) => {
+      return a - b;
+    }); 
+
+    const dateOne = openDates[0]
+    for (let i = 1; i < openDates.length; i++) {
+      const diff = Math.round(Math.abs((dateOne - openDates[i]) / oneDay));
+      diffs.push(diff)
+    }
+
+    let weeklyTotals = ((diffArr) => {
+      const diffs = diffArr
+      let week = 6
+      let weekFreq = []
+      let weekTotal = 0
+      for (let i = 0; i < diffs.length; i++) {
+        if (i === diffs.length - 1) {
+          weekTotal += 1
+          weekFreq.push(weekTotal)
+          break
+        } else if ( diffs[i] <= week) {
+          weekTotal += 1
+        } else if (diffs[i] > week) {
+          week = week + 7
+          weekFreq.push(weekTotal)
+          weekTotal = 1
+        }
+      }
+      return weekFreq
+    })(diffs)
+    
+    let weeklyAvg = ((weeklyT) => {
+      let weeklyTotals = weeklyT
+      if (weeklyTotals.length === 1) {
+        return weeklyTotals[0]
+      } else if (weeklyTotals.length > 2) {
+        weeklyTotals.pop()
+      }
+      
+      let total = 0
+      for (let i = 0; i < weeklyTotals.length; i++) {
+        total += weeklyTotals[i]
+      }
+      
+      return Math.round(total / weeklyTotals.length)
+    })(weeklyTotals)
+    
+    return weeklyAvg
   }
 
   // Uses the array of all PRs and array of Names to return the number of PRs that are from reviewers
