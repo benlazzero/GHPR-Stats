@@ -47,7 +47,7 @@ class OpenPr {
   }
   
   
-  getOpenStats = () => {
+  getAllStats = () => {
     let stats = {}
     stats.total = this.totalPulls
     stats.oldest = this.oldestPull

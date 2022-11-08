@@ -122,7 +122,7 @@ class ClosedPr {
   }
   
   // uses array of admins usernames to grab avatar links from merged pulls
-  getReviewersAvatars = () => {
+  #getReviewersAvatars = () => {
     const adminNames = this.adminNames 
     const mergedPulls = this.mergedPulls
     let pushedAdmins = []
@@ -142,11 +142,11 @@ class ClosedPr {
       }
     }
     
-    return adminAvatars
+    return JSON.stringify(adminAvatars)
   }
 
   // takes in merged prs and returns the average amount of days it took for them to merge
-  getAvgMergeTime = () => {
+  #getAvgMergeTime = () => {
     const mergedPulls = this.mergedPulls
     const admins = this.adminNames
     let samples = [] 
@@ -171,7 +171,7 @@ class ClosedPr {
   }
   
   // takes in an array of dates from merged prs and returns an object of key/value {date: how-many-merges}
-  getPrMergeFrequency = () => {
+  #getPrMergeFrequency = () => {
     let mergeDates = this.mergeDates 
     let frequencyObj = {}
     for (let i = 0; i < mergeDates.length; i++) {
@@ -187,7 +187,7 @@ class ClosedPr {
   }
   
   // takes in array of merged pulls and uses their open dates to return an average of pulls-opened-per-week
-  getAvgPrsWeekly = () => {
+  #getAvgPrsWeekly = () => {
     const mergedPrs = this.mergedPulls
     const oneDay = 24 * 60 * 60 * 1000
     let openDates = [] 
@@ -248,7 +248,7 @@ class ClosedPr {
   }
 
   // Uses the array of all PRs and array of Names to return the number of PRs that are from reviewers
-  getReviewersPullPercent = () => {
+  #getReviewersPullPercent = () => {
     const mergedPrs = this.mergedPulls
     const allNamesArr = this.#getReviewersNames()
     let totalRevsPrs = 0
@@ -259,6 +259,16 @@ class ClosedPr {
       }
     }
     return (Math.round((totalRevsPrs / mergedPrs.length) * 100))
+  }
+  
+  getAllStats = () => {
+    let stats = {}
+    stats.freq = this.#getPrMergeFrequency() 
+    stats.pullPerc = this.#getReviewersPullPercent()
+    stats.adminNames = this.#getReviewersAvatars()
+    stats.avgMrgTime = this.#getAvgMergeTime()
+    stats.avgWk = this.#getAvgPrsWeekly()
+    return stats
   }
 }
 
