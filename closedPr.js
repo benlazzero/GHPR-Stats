@@ -42,7 +42,8 @@ class ClosedPr {
     let allMergedPrs = []
     for (let i = 0; i < allPrs.length; i++) {
       const mergeDate = allPrs[i].merged_at
-      if (mergeDate === null) {
+      const type = allPrs[i].user.type
+      if (mergeDate === null || type === 'Bot') {
         allPrs.splice(i, 1)
         i--
       } else {

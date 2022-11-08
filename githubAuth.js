@@ -42,9 +42,10 @@ const ValidateRepo = (pathArr) => {
  * Returns an array of github api endpoints to get PR's(closed), returns (x) if bad url 
  * @param {string} userUrl - Github url from website's input
  * @param {string} userPullAmount - users max amount of pr's to analyze from websites input
+ * @param {int} getOpenPr - to get closed or open pulls, 0 = closed and 1 = open
  // TODO: either make it return an open link arr or make a new function for it
  */
-const makeUrlArray = async (userUrl, userPullAmount) => {
+const makeUrlArray = async (userUrl, userPullAmount, getOpenPr) => {
   const pathArr = ParseUrlPaths(userUrl)
   const totalPrNum = Number(userPullAmount.slice(0, 1))
   const statusCode = await ValidateRepo(pathArr)
@@ -55,7 +56,10 @@ const makeUrlArray = async (userUrl, userPullAmount) => {
   let arrayOfUrls = []
   const href = 'https://api.github.com/repos'
   const  path = '/' + pathArr[1] + '/' + pathArr[2]  
-  const searchParams = '/pulls?state=closed&per_page=100&page='
+  let searchParams = '/pulls?state=closed&per_page=100&page='
+  if (getOpenPr === 1) {
+    searchParams = '/pulls?state=open&per_page=100&page=' 
+  }
   let urlWithoutPage = href + path + searchParams
   for (let page = 1; page < totalPrNum+1; page++) {
     arrayOfUrls.push(urlWithoutPage + page) 

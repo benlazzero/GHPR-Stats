@@ -30,15 +30,15 @@
 4. Average time for a PR to merge (complete)
 ``` 
 1. API response for 5 pages of 100 closed PR’s from x repo. 
-2. Remove all PR’s that do not have a merge_date. 
+2. Remove all PR’s that do not have a merge_date and are owned by maintainers. 
 3. Make a tuple from each PR with the first value being created_at and second value being Merged_at and store in list. 
 4. Foreach tuple compress the tutple to a single value which is the length of time between each value and store in list. 
 5. Average the length of time list to a single value of time and store in variable. 
 6. Return time variable.
 ```
-5. Total open PRs (incomplete)
-6. Oldest open non draft PR (incomplete)
-7. Newest PR (incomplete)
+5. Total open PRs (complete)
+6. Oldest open non draft PR (complete)
+7. Newest PR (complete)
 8. Avg PRs per week (incomplete)
 ``` 
 1. API response for 5 pages of 100 closed PR’s from x repo. 

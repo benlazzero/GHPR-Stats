@@ -3,8 +3,9 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const cookie = require('cookie')
 const MakeClosedUrlsArr = require('./githubAuth')
-const FetchClosedPrs = require('./apiFetch')
+const FetchPrs = require('./apiFetch')
 const ClosedPr = require('./closedPr')
+const OpenPr = require('./openPr')
 
 const server = express()
 const port = 3000
@@ -14,17 +15,24 @@ server.use(bodyParser.urlencoded({ extended: true }))
 
 server.get('/results', (req, res) => {
   const cookies = cookie.parse(req.headers.cookie || '');
-  res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names + '<br>' + cookies.avg)
+  res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names + '<br>' + 'days: ' + cookies.avg)
 })
 
 server.post('/', async (req, res) => {
-  const closedUrls = await MakeClosedUrlsArr(await req.body.url, await req.body.pulls)
+  const closedUrls = await MakeClosedUrlsArr(await req.body.url, await req.body.pulls, 0)
   if (closedUrls.length === 0) {
     res.redirect('/')
     return
   }
-  const closedPrData = await FetchClosedPrs(closedUrls)
+  const openUrls = await MakeClosedUrlsArr(await req.body.url, await req.body.pulls, 1)
+
+  const openPrData = await FetchPrs(openUrls) 
+  const closedPrData = await FetchPrs(closedUrls)
+
   const newClosedPr = new ClosedPr(closedPrData, closedUrls, await req.body.logins)
+  const newOpenPr = new OpenPr(openPrData)
+  
+  console.log(newOpenPr.getOpenStats())
 
   let freq = newClosedPr.getPrMergeFrequency()
   let pullPerc = newClosedPr.getReviewersPullPercent()
