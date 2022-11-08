@@ -10,7 +10,7 @@ const OpenPr = require('./openPr')
 const server = express()
 const port = 3000
 
-server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, '../public')));
 server.use(bodyParser.urlencoded({ extended: true })) 
 
 server.get('/results', (req, res) => {
