@@ -1,7 +1,7 @@
 const https = require('node:https')
 require('dotenv').config()
 // Header for github's api and recommended 'accept' header per api documentation
-const options = { headers: { 'User-Agent': process.env.GH_USERAGENT, 'Accept': 'application/vnd.github+json'} }
+const options = { headers: { 'User-Agent': process.env.GH_AUTH, 'Accept': 'application/vnd.github+json'} }
 
 /**
  * Nodejs fetch that returns data from a url, uses http library 

@@ -46,8 +46,12 @@ const ValidateRepo = (pathArr) => {
  // TODO: either make it return an open link arr or make a new function for it
  */
 const makeUrlArray = async (userUrl, userPullAmount, getOpenPr) => {
+  let totalPulls = userPullAmount
+  if (totalPulls === undefined) {
+    totalPulls = '100'
+  }
   const pathArr = ParseUrlPaths(userUrl)
-  const totalPrNum = Number(userPullAmount.slice(0, 1))
+  const totalPrNum = Number(totalPulls.slice(0, 1))
   const statusCode = await ValidateRepo(pathArr)
   if (await statusCode !== 200) {
     return []

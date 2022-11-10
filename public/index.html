@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/spinner.css">
     <title></title>
   </head>
   <body>
@@ -12,15 +13,35 @@
       <img class="hero" src="/gitlogoc.png" alt="Github cat logo with monocle and top hat, different shades of blue">
       <h2>GitHub Pull Request Stats</h2>
     </header>
-    <main>
-      <form class="form-wrapper" action="/" method="post">
+    <main id="main">
+      <div id="spin" class="lds-grid" style="display: none">
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+      </div>
+      <form id="form" class="form-wrapper" action="/" method="post">
         <div class="radio-wrapper">
-          <label for="radios">Sample Size |</label>
-          <input type="radio" name="sample" value="100" checked>100</input>
-          <input type="radio" name="sample" value="200">200</input>
-          <input type="radio" name="sample" value="300">300</input>
-          <input type="radio" name="sample" value="400">400</input>
-          <input type="radio" name="sample" value="500">500</input>
+          <label class="radio-header" for="radios">Sample Size |</label>
+          <input type="radio" name="sample" value="100" checked><label class="label">100</label></input>
+          <input type="radio" name="sample" value="200"><label class="label">200</label></input>
+          <input type="radio" name="sample" value="300"><label class="label">300</label></input>
+          <input type="radio" name="sample" value="400"><label class="label">400</label></input>
+          <input type="radio" name="sample" value="500"><label class="label">500</label></input>
         </div>
         <input class="repo-search" type="text" name="url" placeholder="Repo Search">
         <span class="input-desc">Use a full url to any public GitHub repository<br>(https://github.com/octocat/Hello-World)</span>
@@ -28,9 +49,10 @@
         <span class="input-desc">We will do our best to find maintainers automaticly<br> 
                                  but you can ensure they are noticed by adding<br> 
                                  their username(s) separated by a comma.</span>
-        <input class="submit-btn" type="submit" value="Repo Search">
+        <input id="sub-btn" class="submit-btn" type="submit" value="Repo Search">
       </form>
     </main>
+    <script src="/index.js"></script>
   </body>
   <footer class="footer">
     <a class="ghlink" href="#">GitHub

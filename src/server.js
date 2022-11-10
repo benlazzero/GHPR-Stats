@@ -21,10 +21,6 @@ server.get('/results/:repo', (req, res) => {
 })
 
 server.post('/', async (req, res) => {
-  if (req.body.sample === undefined) {
-    res.redirect('/')
-    return
-  }
   const closedUrls = await makeUrlArray(await req.body.url, await req.body.sample, 0)
   if (closedUrls.length === 0) {
     res.redirect('/')
