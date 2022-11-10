@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cookie = require('cookie')
-const MakeClosedUrlsArr = require('./githubAuth')
+const { makeUrlArray, parseUrl } = require('./githubAuth')
 const FetchPrs = require('./apiFetch')
 const ClosedPr = require('./closedPr')
 const OpenPr = require('./openPr')
@@ -13,7 +13,7 @@ const port = 3000
 server.use(express.static(path.join(__dirname, '../public')));
 server.use(bodyParser.urlencoded({ extended: true })) 
 
-server.get('/results', (req, res) => {
+server.get('/results/:repo', (req, res) => {
   const cookies = cookie.parse(req.headers.cookie || '');
   res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names + '<br>' + 
   'days: ' + cookies.avg + '<br>' + 'avg weekly: ' + cookies.avgWk + 
@@ -21,12 +21,16 @@ server.get('/results', (req, res) => {
 })
 
 server.post('/', async (req, res) => {
-  const closedUrls = await MakeClosedUrlsArr(await req.body.url, await req.body.pulls, 0)
+  if (req.body.sample === undefined) {
+    res.redirect('/')
+    return
+  }
+  const closedUrls = await makeUrlArray(await req.body.url, await req.body.sample, 0)
   if (closedUrls.length === 0) {
     res.redirect('/')
     return
   }
-  const openUrls = await MakeClosedUrlsArr(await req.body.url, await req.body.pulls, 1)
+  const openUrls = await makeUrlArray(await req.body.url, await req.body.sample, 1)
 
   const openPrData = await FetchPrs(openUrls) 
   const closedPrData = await FetchPrs(closedUrls)
@@ -47,7 +51,8 @@ server.post('/', async (req, res) => {
   const newest = cookie.serialize('newest', open.newest, {maxAge: 5});
   
   res.setHeader('Set-Cookie', [percent, freq, names, avg, avgWk, total, oldest, newest])
-  res.redirect('/results')
+  const repoName = parseUrl(req.body.url)
+  res.redirect('/results/' + repoName[2])
 })
 
 server.listen(port, async () => {

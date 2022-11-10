@@ -67,4 +67,5 @@ const makeUrlArray = async (userUrl, userPullAmount, getOpenPr) => {
   return arrayOfUrls;
 }
 
-module.exports = makeUrlArray;
+exports.parseUrl = ParseUrlPaths;
+exports.makeUrlArray = makeUrlArray;
