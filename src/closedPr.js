@@ -61,8 +61,13 @@ class ClosedPr {
     let allDates = []
     for (let i = 0; i < mergedPrs.length; i++) {
       const date = mergedPrs[i].merged_at.slice(0, 10)
-      allDates.push(date) 
+      allDates.push(new Date(date + 'T05:00:00Z')) 
     }
+
+    allDates.sort((a, b) => {
+      return a - b;
+    }); 
+
     return allDates
   }
 
@@ -174,16 +179,39 @@ class ClosedPr {
   #getPrMergeFrequency = () => {
     let mergeDates = this.mergeDates 
     let frequencyObj = {}
+
+    const diffDays = ((old, current) => {
+      const diffTime = Math.abs(old - current)
+      const diffday = Math.ceil(diffTime / 86400000)
+      return diffday
+    })
+
+    let oldest = mergeDates[0]
+    let newest = mergeDates[mergeDates.length - 1]
+
     for (let i = 0; i < mergeDates.length; i++) {
       let date = mergeDates[i]
-      let doesExist = frequencyObj.hasOwnProperty(date)
+      date = diffDays(oldest, date)
+      let doesExist = frequencyObj.hasOwnProperty(date+1)
       if (doesExist) {
-        frequencyObj[date] = frequencyObj[date] + 1
+        frequencyObj[date+1] = frequencyObj[date+1] + 1
       } else {
-        frequencyObj[date] = 1
+        frequencyObj[date+1] = 1
       }
     }
-    return JSON.stringify(frequencyObj)
+
+    const totalDays = diffDays(oldest, newest)
+    const totalMerges = Object.keys(frequencyObj).length
+    let eachMerge = {}
+    let keys = Object.keys(frequencyObj)
+    
+    eachMerge.oldest = oldest.toUTCString().slice(0, 16)
+    eachMerge.newest = newest.toUTCString().slice(0, 16)
+    eachMerge.totalDays = totalDays+1
+    eachMerge.totalMerges = totalMerges
+    eachMerge.merges = frequencyObj
+
+    return JSON.stringify(eachMerge)
   }
   
   // takes in array of merged pulls and uses their open dates to return an average of pulls-opened-per-week

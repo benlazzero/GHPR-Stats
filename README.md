@@ -3,12 +3,14 @@
 
 1. Home requirements
 ```
- - URL input box
- - Admin names input box
- - Sample size selector 
  - Test button (inputs sample repo/sample size)
- - Github repo link
- - Design in figma
- - Progress loader for fetch/calc before redirect
- - Cookie ack 
+ - handle 404(redirect to index)
+ - make entire footer a link to github not just the text
+ - add text for the loading page
+ - handle if api limit maxes out and show response
+ - Add sample size filtering on results page
 ```
+
+```
+- for the graph on results page
+cookie = {"oldest: "date", "newest": "date", "totalDays": int, "merges": {"03": "23"}, {"11", "42"} }

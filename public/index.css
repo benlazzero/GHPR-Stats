@@ -23,6 +23,9 @@ body {
 main {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .hero {
@@ -59,7 +62,7 @@ h2 {
 .repo-search {
   margin-top: 1rem;  
   height: 3rem;
-  width: 25rem;
+  width: 23rem;
   border-radius: 25px;
 }
 
@@ -111,6 +114,7 @@ input[type=radio]:checked {
 }
 
 .input-desc {
+  color: #c2c2c2;
   text-align: center;
   margin-top: .7rem;
   font-style: italic;
@@ -154,4 +158,11 @@ a {
   color: #343434
 }
 
+#spin-desc {
+  font-size: 14px;
+  display: unset;
+  margin-top: 50px;
+  line-height: 12px;
+  color: #d1d1d1;
+}
 
