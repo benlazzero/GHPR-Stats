@@ -12,3 +12,47 @@ body {
   background-size: 70%;
   height: 100vh;
 }
+
+.avg-days {
+  background-color: #1d1d1d;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  min-width: 350px;
+  height: 200px;
+  margin-top: 40px;
+  border-radius: 10px;
+}
+
+.avg-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avg-days img {
+  margin-left: 10%;
+  margin-top: 5%;
+  height: 70px;
+  width: 70px;
+}
+
+.avg-value {
+  margin-top: 15%;
+  font-size: 2.5rem;
+  padding-left: 4%;
+}
+
+.avg-desc {
+  margin-top: 15%;
+  font-size: 2.5rem;
+  padding-left: 3%;
+}
+
+.avg-info {
+  margin-top: 20px;
+  font-size: .9rem;
+  color: #a5a5a5;
+}
+
+

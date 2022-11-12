@@ -22,7 +22,13 @@ server.get('/results/:repo', async (req, res) => {
   '/total open: ' + cookies.total + '/oldest pr: ' + cookies.oldest + '/newest pr: ' + cookies.newest)
   */
   fs.readFile('/Users/benlazzeroni/projects/ghprstats/new/GHPR-Stats/public/results.html', 'utf8', ((err, data) => {
-    res.send(data)
+    let valueIndex = data.search("ue\"")
+    let before = data.slice(0, valueIndex+4)
+    let after = data.slice(valueIndex+4)
+    let finalHtml = before + cookies.value + after
+    console.log(req.params.repo) // repos name
+    
+    res.send(finalHtml)
   }))
 })
 
