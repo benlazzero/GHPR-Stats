@@ -203,7 +203,6 @@ class ClosedPr {
     const totalDays = diffDays(oldest, newest)
     const totalMerges = Object.keys(frequencyObj).length
     let eachMerge = {}
-    let keys = Object.keys(frequencyObj)
     
     eachMerge.oldest = oldest.toUTCString().slice(0, 16)
     eachMerge.newest = newest.toUTCString().slice(0, 16)

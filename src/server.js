@@ -15,9 +15,15 @@ server.use(bodyParser.urlencoded({ extended: true }))
 
 server.get('/results/:repo', (req, res) => {
   const cookies = cookie.parse(req.headers.cookie || '');
+  /*
   res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names + '<br>' + 
   'days: ' + cookies.avg + '<br>' + 'avg weekly: ' + cookies.avgWk + 
   '/total open: ' + cookies.total + '/oldest pr: ' + cookies.oldest + '/newest pr: ' + cookies.newest)
+  */
+  let options = {
+    root: path.join(__dirname, '../public')
+  }
+  res.sendFile('results.html', options)
 })
 
 server.post('/', async (req, res) => {
