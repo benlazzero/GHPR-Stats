@@ -6,6 +6,7 @@ const { makeUrlArray, parseUrl } = require('./githubAuth')
 const FetchPrs = require('./apiFetch')
 const ClosedPr = require('./closedPr')
 const OpenPr = require('./openPr')
+const fs = require('node:fs')
 
 const server = express()
 const port = 3000
@@ -13,17 +14,16 @@ const port = 3000
 server.use(express.static(path.join(__dirname, '../public')));
 server.use(bodyParser.urlencoded({ extended: true })) 
 
-server.get('/results/:repo', (req, res) => {
+server.get('/results/:repo', async (req, res) => {
   const cookies = cookie.parse(req.headers.cookie || '');
   /*
   res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names + '<br>' + 
   'days: ' + cookies.avg + '<br>' + 'avg weekly: ' + cookies.avgWk + 
   '/total open: ' + cookies.total + '/oldest pr: ' + cookies.oldest + '/newest pr: ' + cookies.newest)
   */
-  let options = {
-    root: path.join(__dirname, '../public')
-  }
-  res.sendFile('results.html', options)
+  fs.readFile('/Users/benlazzeroni/projects/ghprstats/new/GHPR-Stats/public/results.html', 'utf8', ((err, data) => {
+    res.send(data)
+  }))
 })
 
 server.post('/', async (req, res) => {

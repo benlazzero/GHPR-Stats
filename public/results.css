@@ -1,0 +1,14 @@
+body {
+  background-image: linear-gradient(to bottom, #000000 0%, #3b3b3b 100%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-image {
+  background-image: url('./githublogot.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  height: 100vh;
+}
