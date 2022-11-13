@@ -34,6 +34,21 @@ server.get('/results/:repo', async (req, res) => {
     after = finalHtml.slice(weeklyIndex+4)
     finalHtml = before + cookies.avgWk + after
     
+    let totalOpenIndex = finalHtml.search("bv\"")
+    before = finalHtml.slice(0, totalOpenIndex+4)
+    after = finalHtml.slice(totalOpenIndex+4)
+    finalHtml = before + cookies.total + after
+    
+    let newestDate = finalHtml.search("mv\"")
+    before = finalHtml.slice(0, newestDate+4)
+    after = finalHtml.slice(newestDate+4)
+    finalHtml = before + cookies.newest + after
+
+    let oldestDate = finalHtml.search("sv\"") 
+    before = finalHtml.slice(0, oldestDate+4)
+    after = finalHtml.slice(oldestDate+4)
+    finalHtml = before + cookies.oldest + after
+
     res.send(finalHtml)
   }))
 })
@@ -54,7 +69,6 @@ server.post('/', async (req, res) => {
   
   let closed = newClosedPr.getAllStats()
   let open = newOpenPr.getAllStats()
-
   const percent = cookie.serialize('value', closed.pullPerc, {maxAge: 5});
   const freq = cookie.serialize('freq', closed.freq, {maxAge: 5});
   const names = cookie.serialize('names', closed.adminNames, {maxAge: 5});

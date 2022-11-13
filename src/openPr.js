@@ -43,7 +43,7 @@ class OpenPr {
         }
       }
     }
-    return tempDate
+    return tempDate.toUTCString().slice(5, 16)
   }
   
   
