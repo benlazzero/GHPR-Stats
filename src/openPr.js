@@ -43,6 +43,9 @@ class OpenPr {
         }
       }
     }
+    if (pulls.length === 0) {
+      return "No Open"
+    }
     return tempDate.toUTCString().slice(5, 16)
   }
   

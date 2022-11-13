@@ -14,7 +14,7 @@ body {
 }
 
 .avg-days {
-  background-color: #1d1d1d;
+  background-color: #060606;
   display: flex;
   flex-direction: column;
   max-width: 400px;
@@ -57,7 +57,7 @@ body {
 
 .open-stats {
   align-items: center;
-  height: 375px;
+  height: 340px;
   margin-bottom: 60px;
 }
 
@@ -75,7 +75,7 @@ body {
 .circles {
   display: grid;
   grid-template-columns: 33% 33% 33%;
-  margin-top: 80px;
+  margin-top: 40px;
   width: 85%;
   margin-left: 5%;
 }
@@ -110,7 +110,7 @@ body {
   border-radius: 50%;
   height: 100px;
   width: 100px;
-  outline: 10px solid #1d1d1d;
+  outline: 10px solid #060606;
 }
 
 .med-circle p {
@@ -133,7 +133,7 @@ body {
   height: 80px;
   width: 80px;
   margin-top: 40px;
-  outline: 10px solid #1d1d1d;
+  outline: 10px solid #060606;
 }
 
 .sm-circle p {
