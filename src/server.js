@@ -78,8 +78,7 @@ server.get('/results/:repo', async (req, res) => {
     let avgInverse = 100 - Number(avgValue)
     let thirdKey = '</span></div>'
     after = finalHtml.slice(keyIndex+4)
-    finalHtml = before + avgValue + firstKey + " " + avgValue + secondKey + " " + avgInverse + thirdKey + after
-    console.log(finalHtml)
+    finalHtml = before + avgValue + firstKey + avgValue + secondKey + avgInverse + thirdKey + after
     
     
 
