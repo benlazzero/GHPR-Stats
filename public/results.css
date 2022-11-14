@@ -137,12 +137,52 @@ body {
 }
 
 .sm-circle p {
-  color: #1d1d1d;
+  color: #060606;
   text-align: center;
   font-size: .7rem;
 }
 
 .sm-circle h3 {
-  color: #1d1d1d;
+  color: #060606;
   font-size: .8rem;
+}
+
+.maintainers {
+  height: fit-content;
+  padding-bottom: 30px;
+  margin-bottom: 100px;
+}
+
+.maintainers h4 {
+  font-size: 1.5em;
+  margin-top: 40px;
+}
+
+.maint-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 40px;
+  margin-top: 30px;
+}
+
+.maint-one {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 40px;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.maint-one img {
+  border-radius: 50%;
+  margin: 0;
+  margin-right: 10px;
+  height: 35px;
+  width: 35px;
+}
+
+.maint-one h3 {
+  font-size: 1rem;
 }

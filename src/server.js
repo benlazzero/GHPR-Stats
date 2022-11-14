@@ -48,6 +48,29 @@ server.get('/results/:repo', async (req, res) => {
     before = finalHtml.slice(0, oldestDate+4)
     after = finalHtml.slice(oldestDate+4)
     finalHtml = before + cookies.oldest + after
+    
+    if (cookies.names !== undefined) {
+      if (cookies.names.length > 3) {
+       let allNames = JSON.parse(cookies.names) 
+       let allKeys = Object.keys(allNames)
+       
+       let maintList = finalHtml.search("maint-l")
+       before = finalHtml.slice(0, maintList + 12)
+       after = finalHtml.slice(maintList + 230)
+       let template = finalHtml.slice(maintList + 12, maintList + 230)
+       let allMaints = ""
+       
+       for (let i = 0; i < allKeys.length; i++) {
+         let start = '<div class="maint-one"><img src="'
+         let middle = '" alt="users profile picture"><h3>'
+         let final = '</h3></div>'
+         let temp = start + allNames[allKeys[i]] + middle + allKeys[i] + final
+         allMaints = allMaints + temp
+       }
+       
+       finalHtml = before + allMaints + after
+      }
+    }
 
     res.send(finalHtml)
   }))
