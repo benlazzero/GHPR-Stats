@@ -186,3 +186,72 @@ body {
 .maint-one h3 {
   font-size: 1rem;
 }
+
+.auth-avg {
+  height: 350px;
+  margin-bottom: 100px;
+  padding-bottom: 30px;
+}
+
+.auth-avg h3 {
+  font-size: 1.5rem;
+  margin-top: 40px;
+  align-self: flex-start;
+
+  margin-left: 13%;
+}
+
+.auth-perc-wrap {
+  display: flex;
+}
+
+.percs-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 35%;
+}
+
+.authors {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.authors span {
+  margin-left: 5px;
+  text-align: left;
+}
+
+.key-one {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: aquamarine;
+}
+
+.key-two {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: #5e5eb6;
+}
+
+.progress-circle {
+  transform: rotate(-90deg);
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+.progress-circle-back {
+	fill: none; 
+	stroke: #5e5eb6;
+	stroke-width: 30px;
+}
+
+.progress-circle-front {
+	fill: none; 
+	stroke: aquamarine;
+	stroke-width: 30px;  
+	stroke-dasharray: 0 999;    
+	stroke-dashoffset: 0px;
+}

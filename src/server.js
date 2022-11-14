@@ -57,7 +57,6 @@ server.get('/results/:repo', async (req, res) => {
        let maintList = finalHtml.search("maint-l")
        before = finalHtml.slice(0, maintList + 12)
        after = finalHtml.slice(maintList + 230)
-       let template = finalHtml.slice(maintList + 12, maintList + 230)
        let allMaints = ""
        
        for (let i = 0; i < allKeys.length; i++) {
@@ -67,10 +66,22 @@ server.get('/results/:repo', async (req, res) => {
          let temp = start + allNames[allKeys[i]] + middle + allKeys[i] + final
          allMaints = allMaints + temp
        }
-       
        finalHtml = before + allMaints + after
       }
     }
+    
+    let keyIndex = finalHtml.search("-->")
+    before = finalHtml.slice(0, keyIndex-1) 
+    let avgValue = cookies.value
+    let firstKey = '--><div class="authors"><div class="key-one"></div><span>Maintainers<br>%'
+    let secondKey = '</span></div><div class="authors"><div class="key-two"></div><span>Others<br>%'
+    let avgInverse = 100 - Number(avgValue)
+    let thirdKey = '</span></div>'
+    after = finalHtml.slice(keyIndex+4)
+    finalHtml = before + avgValue + firstKey + " " + avgValue + secondKey + " " + avgInverse + thirdKey + after
+    console.log(finalHtml)
+    
+    
 
     res.send(finalHtml)
   }))
