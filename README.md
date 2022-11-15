@@ -9,8 +9,5 @@
  - add text for the loading page
  - handle if api limit maxes out and show response
  - Add sample size filtering on results page
+ - If values 'undefined' render a html error/cookie policy page
 ```
-
-```
-- for the graph on results page
-cookie = {"oldest: "date", "newest": "date", "totalDays": int, "merges": {"03": "23"}, {"11", "42"} }

@@ -189,7 +189,7 @@ body {
 
 .auth-avg {
   height: 350px;
-  margin-bottom: 100px;
+  margin-bottom: 70px;
   padding-bottom: 30px;
 }
 
@@ -197,7 +197,6 @@ body {
   font-size: 1.5rem;
   margin-top: 40px;
   align-self: flex-start;
-
   margin-left: 13%;
 }
 
@@ -254,4 +253,31 @@ body {
 	stroke-width: 30px;  
 	stroke-dasharray: 0 999;    
 	stroke-dashoffset: 0px;
+}
+
+.freq-graph {
+  height: 350px;
+  margin-bottom: 100px;
+  padding-bottom: 30px;
+  margin-top: 0;
+}
+
+.freq-graph h3 {
+  font-size: 1.5rem;
+  margin-top: 40px;
+  align-self: flex-start;
+  margin-left: 13%;
+  margin-bottom: 5px;
+}
+
+.freq-graph p {
+  align-self: flex-start;
+  margin-left: 13%;
+  font-size: .9rem;
+  margin-bottom: 5px;
+}
+
+.freq-dates {
+  color: grey;
+  font-style: italic;
 }
