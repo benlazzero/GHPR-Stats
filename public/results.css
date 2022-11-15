@@ -281,3 +281,42 @@ body {
   color: grey;
   font-style: italic;
 }
+
+.gb-graph {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 110%;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.gb-graph hr {
+  border: none;
+  border-top: 3px dotted rgb(114, 114, 114);
+  color: #fff;
+  height: 35px;
+}
+
+.data-point {
+  position: absolute;
+  width: 20px;
+  background-color: rgb(80, 80, 202); 
+  bottom: 31px;
+  border-radius: 5px;
+  line-height: 30px;
+}
+
+.data-point p {
+  position: absolute;
+  bottom: -40px;
+  color:rgb(114, 114, 114);
+}
+
+.data-point p:first-child {
+  bottom: -5px;
+  color: #060606;
+}

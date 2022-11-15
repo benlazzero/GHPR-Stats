@@ -291,6 +291,7 @@ class ClosedPr {
   getAllStats = () => {
     let stats = {}
     stats.freq = this.#getPrMergeFrequency() 
+    console.log(stats.freq)
     stats.pullPerc = this.#getReviewersPullPercent()
     stats.adminNames = this.#getReviewersAvatars()
     stats.avgMrgTime = this.#getAvgMergeTime()
