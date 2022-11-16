@@ -66,6 +66,7 @@ server.get('/results/:repo', async (req, res) => {
          let temp = start + allNames[allKeys[i]] + middle + allKeys[i] + final
          allMaints = allMaints + temp
        }
+       console.log(allMaints)
        finalHtml = before + allMaints + after
       }
     }
@@ -80,7 +81,62 @@ server.get('/results/:repo', async (req, res) => {
     after = finalHtml.slice(keyIndex+4)
     finalHtml = before + avgValue + firstKey + avgValue + secondKey + avgInverse + thirdKey + after
     
+    // freq graph set width based on keys
+    let freqIndex = finalHtml.search("dth: ")
+    let width = 350
+    if (cookies.freq !== undefined) {
+      totalKeys = Object.keys(JSON.parse(cookies.freq).merges).length
+      if (totalKeys > 8) {
+        width = ((width - 8) * 30) + 350 
+      }
+    }
+
+    before = finalHtml.slice(0, freqIndex+4)
+    after = finalHtml.slice(freqIndex+8) 
+    finalHtml = before + " " + width.toString() + after
     
+    // freq graph get heights, set left, insert child nodes
+    let dataIndex = finalHtml.search("<hr><hr><hr><hr>")
+    before = finalHtml.slice(0, dataIndex+16)
+    after = finalHtml.slice(dataIndex+16)
+    
+    let height = '<div class="data-point" style="height: "'
+    let left = 'px;left: '
+    let beforePTag = 'px">'
+    let closeDiv = '</div>'
+    
+    let dataToJoin = []
+    if (cookies.freq !== undefined) {
+      let freqKeys = Object.keys(JSON.parse(cookies.freq).merges)
+      let mergeObj = JSON.parse(cookies.freq).merges
+      let upperBound = 0
+      let lowerBound = 500
+      for (let i = 0; i < freqKeys.length; i++) {
+        let tempValue = mergeObj[freqKeys[i]]
+        if (tempValue < lowerBound) {
+          lowerBound = tempValue
+        } 
+        if (tempValue > upperBound) {
+          upperBound = tempValue
+        }
+      }
+      
+      let normalizedData = []
+      for (let i = 0; i < freqKeys.length; i++) {
+        let tempValue = mergeObj[freqKeys[i]]
+        let normal = (tempValue - lowerBound) / upperBound
+        normalizedData.push(normal.toFixed(2))
+      }
+      
+      let heights = []
+      for (let i = 0; i < normalizedData.length; i++) {
+        let tempHeight = normalizedData[i] 
+        let pixelsToAdd = (80 * tempHeight) + 30
+        heights.push(Math.floor(pixelsToAdd))
+      }
+      
+      console.log(heights)
+    }
 
     res.send(finalHtml)
   }))
