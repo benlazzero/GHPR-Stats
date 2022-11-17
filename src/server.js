@@ -153,8 +153,8 @@ server.get('/results/:repo', async (req, res) => {
       // set top info for merge frequency card
       let freqObject = JSON.parse(cookies.freq)
       
-      let mergeDaysHtml = "<p>" + freqObject.totalDays + " Days</p>" 
-      let totalDatesHtml = "<p>" + freqObject.totalMerges + " Merge Dates </p>" 
+      let mergeDaysHtml = "<p>" + freqObject.totalDays + " Total days</p>" 
+      let totalDatesHtml = '<p class="freq-total">' + freqObject.totalMerges + " Merge dates </p>" 
       let mergeCardDate = '<p class="freq-dates">from ' + freqObject.oldest + " - " + freqObject.newest + "</p>"  
       
       let freqInfoIndex = finalHtml.search("ncy</h3>")
@@ -163,6 +163,11 @@ server.get('/results/:repo', async (req, res) => {
       finalHtml = before + mergeDaysHtml + totalDatesHtml + mergeCardDate + after
     }
     
+    // insert repo name
+    let repoNameIndex = finalHtml.search("<h2>Repo")
+    before = finalHtml.slice(0, repoNameIndex+12)
+    after = finalHtml.slice(repoNameIndex+12)
+    finalHtml = before + req.params.repo + after
     res.send(finalHtml)
   }))
 })
