@@ -86,7 +86,7 @@ server.get('/results/:repo', async (req, res) => {
     if (cookies.freq !== undefined) {
       totalKeys = Object.keys(JSON.parse(cookies.freq).merges).length
       if (totalKeys > 11) {
-        width = ((totalKeys - 11) * 60) + 350 
+        width = ((totalKeys - 7) * 100) + 350 
       }
     }
 
@@ -146,7 +146,7 @@ server.get('/results/:repo', async (req, res) => {
         
         let clientNumbers = "<p>" + mergeAmount + "</p><p>" + dayOfTotal + "</p></div>"
         dataHtmlString += height + tempHeight + left + leftPixels + beforePTag + clientNumbers
-        leftAmount += 30 
+        leftAmount += 50 
       }
       finalHtml = before + dataHtmlString + after
 

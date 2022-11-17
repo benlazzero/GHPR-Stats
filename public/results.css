@@ -332,6 +332,8 @@ body {
 }
 
 .data-point {
+  display: flex;
+  justify-content: center;
   position: absolute;
   width: 20px;
   background-color: rgb(80, 80, 202); 
