@@ -87,7 +87,7 @@ server.get('/results/:repo', async (req, res) => {
     if (cookies.freq !== undefined) {
       totalKeys = Object.keys(JSON.parse(cookies.freq).merges).length
       if (totalKeys > 8) {
-        width = ((width - 8) * 30) + 350 
+        width = ((totalKeys - 8) * 55) + 350 
       }
     }
 
@@ -100,15 +100,12 @@ server.get('/results/:repo', async (req, res) => {
     before = finalHtml.slice(0, dataIndex+16)
     after = finalHtml.slice(dataIndex+16)
     
-    let height = '<div class="data-point" style="height: "'
-    let left = 'px;left: '
-    let beforePTag = 'px">'
-    let closeDiv = '</div>'
     
     let dataToJoin = []
     if (cookies.freq !== undefined) {
       let freqKeys = Object.keys(JSON.parse(cookies.freq).merges)
       let mergeObj = JSON.parse(cookies.freq).merges
+      let mergesNum = JSON.parse(cookies.freq).totalMerges
       let upperBound = 0
       let lowerBound = 500
       for (let i = 0; i < freqKeys.length; i++) {
@@ -136,6 +133,28 @@ server.get('/results/:repo', async (req, res) => {
       }
       
       console.log(heights)
+
+      // put it all together for render
+      let leftAmount = 15
+      let dataHtmlString = ""
+      let height = '<div class="data-point" style="height: '
+      let left = 'px;left: '
+      let beforePTag = 'px">'
+
+      for (let i = 0; i < heights.length; i ++) {
+        let tempHeight = heights[i]
+        let leftPixels = leftAmount
+        let mergeAmount = mergeObj[freqKeys[i]]
+        let dayOfTotal = freqKeys[i]
+        if (dayOfTotal < 10) {
+          dayOfTotal = '0' + dayOfTotal
+        }
+        
+        let clientNumbers = "<p>" + mergeAmount + "</p><p>" + dayOfTotal + "</p></div>"
+        dataHtmlString += height + tempHeight + left + leftPixels + beforePTag + clientNumbers
+        leftAmount += 30 
+      }
+      finalHtml = before + dataHtmlString + after
     }
 
     res.send(finalHtml)
