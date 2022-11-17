@@ -66,7 +66,6 @@ server.get('/results/:repo', async (req, res) => {
          let temp = start + allNames[allKeys[i]] + middle + allKeys[i] + final
          allMaints = allMaints + temp
        }
-       console.log(allMaints)
        finalHtml = before + allMaints + after
       }
     }
@@ -86,8 +85,8 @@ server.get('/results/:repo', async (req, res) => {
     let width = 350
     if (cookies.freq !== undefined) {
       totalKeys = Object.keys(JSON.parse(cookies.freq).merges).length
-      if (totalKeys > 8) {
-        width = ((totalKeys - 8) * 55) + 350 
+      if (totalKeys > 11) {
+        width = ((totalKeys - 11) * 60) + 350 
       }
     }
 
@@ -100,12 +99,9 @@ server.get('/results/:repo', async (req, res) => {
     before = finalHtml.slice(0, dataIndex+16)
     after = finalHtml.slice(dataIndex+16)
     
-    
-    let dataToJoin = []
     if (cookies.freq !== undefined) {
       let freqKeys = Object.keys(JSON.parse(cookies.freq).merges)
       let mergeObj = JSON.parse(cookies.freq).merges
-      let mergesNum = JSON.parse(cookies.freq).totalMerges
       let upperBound = 0
       let lowerBound = 500
       for (let i = 0; i < freqKeys.length; i++) {
@@ -132,8 +128,6 @@ server.get('/results/:repo', async (req, res) => {
         heights.push(Math.floor(pixelsToAdd))
       }
       
-      console.log(heights)
-
       // put it all together for render
       let leftAmount = 15
       let dataHtmlString = ""
@@ -155,8 +149,20 @@ server.get('/results/:repo', async (req, res) => {
         leftAmount += 30 
       }
       finalHtml = before + dataHtmlString + after
-    }
 
+      // set top info for merge frequency card
+      let freqObject = JSON.parse(cookies.freq)
+      
+      let mergeDaysHtml = "<p>" + freqObject.totalDays + " Days</p>" 
+      let totalDatesHtml = "<p>" + freqObject.totalMerges + " Merge Dates </p>" 
+      let mergeCardDate = '<p class="freq-dates">from ' + freqObject.oldest + " - " + freqObject.newest + "</p>"  
+      
+      let freqInfoIndex = finalHtml.search("ncy</h3>")
+      before = finalHtml.slice(0, freqInfoIndex+8)
+      after = finalHtml.slice(freqInfoIndex+8)
+      finalHtml = before + mergeDaysHtml + totalDatesHtml + mergeCardDate + after
+    }
+    
     res.send(finalHtml)
   }))
 })

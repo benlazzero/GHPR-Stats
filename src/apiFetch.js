@@ -37,7 +37,6 @@ const GetAllPrData = async (urlArr) => {
   let allPrs = []
   for (let i = 0; i < Urls.length; i++) {
     let prRequest = await GetSinglePrPage(Urls[i])
-    console.log(typeof(prRequest) + i)
     if (prRequest.length < 100) {
       totalLength += prRequest.length
       allPrs.push(prRequest)
