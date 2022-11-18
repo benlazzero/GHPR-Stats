@@ -1,5 +1,9 @@
+html {
+  height: unset;
+}
+
 body {
-  background-image: linear-gradient(to bottom, #a0a0a0 0%, #3b3b3b 100%);
+  background-image: radial-gradient(circle at 150px 300px, #999 0%, #43e 40%, #000 70%);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -21,7 +25,6 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 70%;
-  height: 100vh;
 }
 
 .avg-days {
