@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Coda&display=swap');
 
 * {
   box-sizing: border-box;
@@ -8,6 +9,7 @@
 
 html {
   font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   color: rgb(239, 239, 239);
   height: 100%;
 }
@@ -28,24 +30,30 @@ main {
   text-align: center;
 }
 
-.hero {
-  display: block;
-  margin-top: 80px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  max-height: 440px;
-  object-fit: contain;
+sup {
+  font-size: .5em;
+}
+
+.index-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  padding: 60px 15px 0px 15px;
+}
+
+.index-header h2 {
+  font-size: 2em;
+}
+
+.index-header p {
+  font-weight: 400;
+  color: grey;
 }
 
 .icon {
   height: 16px;
   filter: invert(18%);
-}
-
-h2 {
-  text-align: center;
-  margin-top: 1rem;
 }
 
 .form-wrapper {
@@ -59,32 +67,56 @@ h2 {
   margin-right: 10px; 
 }
 
+.radio-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-btn-wrapper {
+  background-color: #1b1b1b;
+  border-radius: 37px;
+  padding: 8px 18px 8px 18px;
+}
+
+.radio-header {
+  font-size: 16px;
+  text-align: left;
+  padding-left: 20px;
+  padding-bottom: 6px;
+}
+
+.label {
+  font-size: 13px;
+}
+
+
 .repo-search {
-  margin-top: 1rem;  
-  height: 3rem;
-  width: 23rem;
-  border-radius: 25px;
+  height: 35px;
+  width: 294.69px;
+  border-radius: 37px;
 }
 
 .maint-search {
-  margin-top: 1rem;  
-  height: 3rem;
-  width: 20rem;
-  border-radius: 25px;
+  height: 35px;
+  width: 294.69px;
+  border-radius: 37px;
 }
 
 input::placeholder {
-  font-size: 1rem;
+  font-family: 'Coda', cursive;
+  font-size: 14px;
   color: #a7a7a7;
-  padding-left: 1rem;
+  padding-left: 5px;
 }
 
 input[type=text] {
+  font-family: 'Coda', cursive;
   box-sizing: border-box;
-  border: 2px solid #ccc;
+  border: 1px solid #000000;
   background-color: white;
   padding-left: 15px;
-  font-size: 1em;
+  font-size: 14px;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
 input[type=radio] {
@@ -92,7 +124,7 @@ input[type=radio] {
   background-color: transparent;
   width: 1.1em;
   height: 1.1em;
-  border: .15em solid rgb(198, 198, 198);
+  border: .1em solid rgb(244, 244, 244);
   border-radius: 50%;
   margin-right: 6px;
   margin-left: 6px;
@@ -100,18 +132,9 @@ input[type=radio] {
 }
 
 input[type=radio]:checked {
-  box-shadow: inset 1em 1em #168ffa;
+  box-shadow: inset 1em 1em #635bdf;
 }
 
-.radio-header {
-  font-size: 14px;
-  color:rgb(198, 198, 198);
-  transform: translateY(0.2em);  
-}
-
-.label {
-  font-size: 12px;
-}
 
 .input-desc {
   color: #c2c2c2;
@@ -121,17 +144,30 @@ input[type=radio]:checked {
   font-size: .8rem;
 }
 
+.input-headers {
+  align-self: flex-start;
+  padding-left: 20px;
+  font-size: 16px;
+  padding-top: 20px;
+  padding-bottom: 6px;
+}
+
 .submit-btn {
   height: 35px;
   width: 140px; 
-  margin-top: 60px;
+  margin-top: 40px;
   border-radius: 10px;
   background-color: rgb(83, 154, 230);
-  background-image: linear-gradient(to right, #53e6bf , #0b85ff);
+  background-image: linear-gradient(to right, #8d85ad , #635bdf);
   border-color: white;
   color: white;
   font-size: 1rem;
-  margin-bottom: 100px;
+  box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.5);
+  margin-bottom: 40px;
+}
+
+.submit-btn:active {
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
 
 a {
@@ -140,22 +176,23 @@ a {
   text-decoration: none;
 }
 
-.footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+.git-logo {
+  width: 40px;
   height: 40px;
-  background-color: #c85e37;
-  color: rgb(55, 55, 55);
-  text-align: center;
 }
 
-.ghlink {
-  color: #343434
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+button {
+  all: unset;
+  align-self: center;
+  color:#1b1b1b;
+  padding-bottom: 40px;
+  font-weight: 400;
 }
 
 #spin-desc {

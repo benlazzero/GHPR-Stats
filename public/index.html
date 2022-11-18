@@ -9,9 +9,10 @@
     <title></title>
   </head>
   <body>
-    <header>
-      <img class="hero" src="/gitlogoc.png" alt="Github cat logo with monocle and top hat, different shades of blue">
-      <h2>GitHub Pull Request Stats</h2>
+    <header class="index-header">
+      <h4>GHPR-Stats</h4>
+      <h2>Open-Sourcers<sup>Tiny</sup><br>Repository Reference</h2>
+      <p>Who are the maintainers? What percent of merged pull requests are from outside the core team? On average how many pull requests open each week? etc..</p>
     </header>
     <main id="main">
       <div id="spin" class="lds-grid" style="display: none"><div></div>
@@ -26,27 +27,28 @@
       </div>
       <form id="form" class="form-wrapper" action="/" method="post">
         <div class="radio-wrapper">
-          <label class="radio-header" for="radios">Sample Size |</label>
-          <input type="radio" name="sample" value="100" checked><label class="label">100</label></input>
-          <input type="radio" name="sample" value="200"><label class="label">200</label></input>
-          <input type="radio" name="sample" value="300"><label class="label">300</label></input>
-          <input type="radio" name="sample" value="400"><label class="label">400</label></input>
-          <input type="radio" name="sample" value="500"><label class="label">500</label></input>
+          <label class="radio-header" for="radios">Sample</label>
+          <div class="radio-btn-wrapper">
+            <input type="radio" name="sample" value="100" checked><label class="label">100</label></input>
+            <input type="radio" name="sample" value="200"><label class="label">200</label></input>
+            <input type="radio" name="sample" value="300"><label class="label">300</label></input>
+            <input type="radio" name="sample" value="400"><label class="label">400</label></input>
+            <input type="radio" name="sample" value="500"><label class="label">500</label></input>
+          </div>
         </div>
-        <input class="repo-search" type="text" name="url" placeholder="Repo Search">
-        <span class="input-desc">Use a full url to any public GitHub repository<br>(https://github.com/octocat/Hello-World)</span>
-        <input class="maint-search" type="text" name="logins" placeholder="Maintainers">
-        <span class="input-desc">We will do our best to find maintainers automatically<br> 
-                                 but you can ensure they are noticed by adding<br> 
-                                 their username(s) separated by a comma.</span>
+        <label class="input-headers">Repo</label>
+        <input class="repo-search" type="text" name="url" placeholder="eg. http://github.com/octocat/hello-world">
+        <label class="input-headers">Maintainers</label>
+        <input class="maint-search" type="text" name="logins" placeholder="eg. tommy, kyle, smith">
         <input id="sub-btn" class="submit-btn" type="submit" value="Repo Search">
       </form>
     </main>
     <script src="/index.js"></script>
   </body>
   <footer class="footer">
-    <a class="ghlink" href="https://github.com/benlazzero/GHPR-Stats" target="_blank" rel="noopener noreferrer">GitHub
-      <img class="icon" src="/link.png" alt="icon of an arrow leaving a square, show this is an external link">
+    <button>Need help?</button>
+    <a href="https://github.com/benlazzero/GHPR-Stats">
+      <img class="git-logo" src="/gitlogoblk.png" alt="github logo">
     </a>
   </footer>
 </html>
