@@ -17,8 +17,6 @@ html {
 body {
   background-image: url("ghprbg.png");
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   width: 100%;
 }
 
@@ -31,7 +29,8 @@ main {
 }
 
 sup {
-  font-size: .5em;
+  font-weight: 400;
+  font-size: .4em;
 }
 
 .index-header {
@@ -190,7 +189,7 @@ a {
 button {
   all: unset;
   align-self: center;
-  color:#1b1b1b;
+  color:#dedede;
   padding-bottom: 40px;
   font-weight: 400;
 }
@@ -203,3 +202,49 @@ button {
   color: #d1d1d1;
 }
 
+@media screen and (min-width: 498px) {
+  .index-header {
+    padding-left: 6em;  
+    margin-bottom: 60px;
+  }
+
+  .index-header h2 {
+    font-size: 3em;
+  }
+  
+  .index-header h4 {
+    font-size: 1.3em;
+  }
+  
+  .index-header p {
+
+    font-size: 1.3em;
+    max-width: 800px;
+  }
+  
+  .footer button {
+    color: rgb(29, 29, 29);
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .index-header h2 {
+    font-size: 5em;
+  }
+  
+  body {
+    background-size: cover;
+  }
+  
+  .index-header p {
+    font-size: 1.5em;
+    max-width: 1112px;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .index-header {
+    padding-left: 10em;
+    margin-bottom: 100px;
+  }
+}
