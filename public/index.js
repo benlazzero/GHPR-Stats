@@ -1,11 +1,13 @@
 
 const submitHandler = () => {
-  let form = document.getElementById("form")      
-  let spin = document.getElementById("spin")      
+  let main = document.getElementById("main")      
+  let header = document.querySelector(".index-header")      
+  let body = document.getElementById("body-elm")
   let spinDesc = document.getElementById("spin-desc")      
-  form.style.display = "none"
-  spin.style.display = "unset"
+  header.style.display = "none"
+  main.style.display = "none"
   spinDesc.style.display = "unset"
+  body.classList.add("bg-anime")
 }
 
 document.getElementById("sub-btn").addEventListener("click", submitHandler);

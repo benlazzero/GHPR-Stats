@@ -5,26 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/index.css">
-    <link rel="stylesheet" href="/spinner.css">
+    <link rel="stylesheet" href="/keyframe.css">
     <title></title>
   </head>
-  <body>
+  <body id="body-elm">
     <header class="index-header">
       <h4>GHPR-Stats</h4>
       <h2>Open-Sourcers<sup>Tiny</sup><br>Repository Reference</h2>
       <p>Who are the maintainers? What percent of merged pull requests are from outside the core team? On average how many pull requests open each week? etc..</p>
     </header>
+    <div id="spin-desc" style="display: none;">
+      <p>Fetching data and calculating values</p><br>
+      <p>You will be redirected in about 10 seconds...</p>
+    </div>
     <main id="main">
-      <div id="spin" class="lds-grid" style="display: none"><div></div>
-        <div></div><div></div>
-        <div></div><div></div>
-        <div></div><div></div>
-        <div></div><div></div>
-      </div>
-      <div id="spin-desc" style="display: none;">
-        <p>Fetching data and calculating values</p><br>
-        <p>You will be redirected in about 10 seconds...</p>
-      </div>
       <form id="form" class="form-wrapper" action="/" method="post">
         <div class="radio-wrapper">
           <label class="radio-header" for="radios">Sample</label>
