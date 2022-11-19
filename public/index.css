@@ -215,11 +215,25 @@ button {
 }
 
 #spin-desc {
-  font-size: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 50px;
+  font-size: 24px;
   display: unset;
   margin-top: 50px;
-  line-height: 12px;
-  color: #d1d1d1;
+  line-height: 28px;
+  color: #ffffff;
+}
+
+#desc {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 50px;
+  font-size: 24px;
+  display: unset;
+  margin-top: 50px;
+  line-height: 28px;
+  color: #ffffff;
 }
 
 @media screen and (min-width: 498px) {
@@ -244,6 +258,16 @@ button {
   
   .footer button {
     color: rgb(29, 29, 29);
+  }
+  
+  #spin-desc {
+    font-size: 30px;
+    line-height: unset;
+  }
+  
+  #desc {
+    font-size: 30px;
+    line-height: unset;
   }
 }
 

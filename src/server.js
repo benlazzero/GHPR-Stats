@@ -181,6 +181,13 @@ server.post('/', async (req, res) => {
   const openUrls = await makeUrlArray(await req.body.url, await req.body.sample, 1)
 
   const openPrData = await FetchPrs(openUrls) 
+
+  // rate limit exceeded
+  if (typeof(openPrData[0]) === 'object') {
+    console.log('oops')
+    res.redirect('/')
+    return
+  }
   const closedPrData = await FetchPrs(closedUrls)
 
   const newClosedPr = new ClosedPr(closedPrData, closedUrls, await req.body.logins)

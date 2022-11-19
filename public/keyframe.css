@@ -1,14 +1,13 @@
 .bg-anime::before {
-  animation: hue-adj 1.2s linear infinite;
+  animation: hue-adj 4s ease-in-out infinite;
   animation-delay: 0ms;
 }
 
-
 @keyframes hue-adj {
   0%, 100% {
-    filter: hue-rotate(180deg);
+    filter: hue-rotate(0deg);
   }
   50% {
-    filter: hue-rotate(90deg);
+    filter: hue-rotate(149deg);
   }
 }
