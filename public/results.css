@@ -3,15 +3,12 @@ html {
 }
 
 body {
-  background-image: radial-gradient(circle at 150px 300px, #999 0%, #43e 40%, #000 70%);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  position: relative;
 }
 
 section {
   align-items: center;
-  width: 700px;
+  width: 100%;
   display: flex;
   flex-direction: column-reverse;
 }
@@ -20,15 +17,8 @@ main {
   padding-bottom: 100px;
 }
 
-.hero-image {
-  background-image: url('./githublogot.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 70%;
-}
-
 .avg-days {
-  background-color: #080809;
+  background-color: #171823;
   display: flex;
   flex-direction: column;
   max-width: 400px;
@@ -37,6 +27,8 @@ main {
   margin-top: 40px;
   border-radius: 10px;
   order: 3;
+  border: 0.5px solid #5C5C5C;
+  box-shadow: 4px 2px 12px 3px rgba(0, 0, 0, 0.25);
 }
 
 .avg-main {
@@ -67,6 +59,7 @@ main {
 .avg-info {
   margin-top: 20px;
   font-size: .9rem;
+  font-weight: 400;
   color: #a5a5a5;
 }
 
@@ -109,6 +102,7 @@ main {
   color: #1d1d1d;
   text-align: center;
   font-size: .8rem;
+  font-weight: 400;
 }
 
 .big-circle h3 {
@@ -124,18 +118,19 @@ main {
   border-radius: 50%;
   height: 100px;
   width: 100px;
-  outline: 10px solid #060606;
+  outline: 10px solid #171823;
 }
 
 .med-circle p {
   color: #1d1d1d;
   text-align: center;
   font-size: .8rem;
+  font-weight: 400;
 }
 
 .med-circle h3 {
   color: #1d1d1d;
-  font-size: 1rem;
+  font-size: .9rem;
 }
 
 .sm-circle {
@@ -147,18 +142,19 @@ main {
   height: 80px;
   width: 80px;
   margin-top: 40px;
-  outline: 10px solid #060606;
+  outline: 10px solid #171823;
 }
 
 .sm-circle p {
   color: #060606;
   text-align: center;
   font-size: .7rem;
+  font-weight: 400;
 }
 
 .sm-circle h3 {
   color: #060606;
-  font-size: .8rem;
+  font-size: .7rem;
 }
 
 .maintainers {
@@ -198,6 +194,7 @@ main {
 }
 
 .maint-one h3 {
+  font-weight: 400;
   font-size: 1rem;
 }
 
@@ -232,6 +229,7 @@ main {
 .authors span {
   margin-left: 5px;
   text-align: left;
+  font-weight: 400;
 }
 
 .key-one {
@@ -287,6 +285,7 @@ main {
   align-self: flex-start;
   margin-left: 13%;
   font-size: .9rem;
+  font-weight: 400;
   margin-bottom: 5px;
 }
 
@@ -352,9 +351,11 @@ main {
   bottom: 31px;
   border-radius: 5px;
   line-height: 30px;
+  border: 0.5px solid grey;
 }
 
 .data-point p {
+  margin: 0;
   position: absolute;
   bottom: -40px;
   color:rgb(114, 114, 114);

@@ -1,13 +1,11 @@
 # GHPR-Stats
 ##### A website to get information about a github repository's PR history and how welcoming they are to outside PR's.
 
-1. Home requirements
-```
- - Test button (inputs sample repo/sample size)
- - handle 404(redirect to index)
- - make entire footer a link to github not just the text
- - add text for the loading page
- - handle if api limit maxes out and show response
- - Add sample size filtering on results page
- - If values 'undefined' render a html error/cookie policy page
+1. TODO -> done!
+``` 
+1. scroll bar in freq graph. minimal design and fix padding with other elements.
+2. colors in freq graph. they are too 'neon'.
+3. mergers circle is boring, fix design.
+4. add little style things
+5. layout of cards for mobile and desktop.
 ```

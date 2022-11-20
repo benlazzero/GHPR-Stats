@@ -1,13 +1,27 @@
+.bg-easein::before {
+  animation: hue-easein 3s forwards;
+}
+
 .bg-anime::before {
-  animation: hue-adj 4s ease-in-out infinite;
+  animation: hue-adj 3s ease-in-out infinite;
   animation-delay: 0ms;
+}
+
+@keyframes hue-easein {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    filter: hue-rotate(100deg);
+  }
 }
 
 @keyframes hue-adj {
   0%, 100% {
-    filter: hue-rotate(0deg);
+    filter: hue-rotate(100deg);
   }
   50% {
-    filter: hue-rotate(149deg);
+    filter: hue-rotate(150deg);
   }
 }

@@ -10,7 +10,11 @@ const submitHandler = () => {
   footer.style.display = "none"
   main.style.display = "none"
   spinDesc.style.display = "block"
-  body.classList.add("bg-anime")
+  body.classList.add("bg-easein") 
+  setTimeout(() => {
+    body.classList.remove("bg-easein")
+    body.classList.add("bg-anime")
+  }, 3000)
   setTimeout(() => {
     spinDesc.style.display = "none"
     desc.style.display = "block"

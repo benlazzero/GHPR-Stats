@@ -1,0 +1,14 @@
+.body-elm::before {
+  animation: hue-final 2s forwards;
+  animation-delay: 1ms;
+}
+
+@keyframes hue-final {
+  0% {
+    filter: hue-rotate(108deg);
+  }
+  
+  100% {
+    filter: hue-rotate(248deg);
+  }
+}
