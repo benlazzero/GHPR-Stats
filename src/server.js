@@ -183,7 +183,7 @@ server.post('/', async (req, res) => {
   const openPrData = await FetchPrs(openUrls) 
 
   // rate limit exceeded
-  if (typeof(openPrData[0]) === 'object') {
+  if (Object.keys(openPrData[0]).length === 2) {
     console.log('oops')
     res.redirect('/')
     return
