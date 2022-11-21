@@ -86,7 +86,7 @@ server.get('/results/:repo', async (req, res) => {
     if (cookies.freq !== undefined) {
       totalKeys = Object.keys(JSON.parse(cookies.freq).merges).length
       if (totalKeys > 11) {
-        width = ((totalKeys - 7) * 100) + 350 
+        width = ((totalKeys - 7) * 100) + 370 
       }
     }
 

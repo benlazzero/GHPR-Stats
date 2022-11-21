@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/keyframeresults.css">
     <title></title>
   </head>
+  <span id="width"></span>
   <body class="body-elm">
     <div>
       <header>
@@ -75,8 +76,14 @@
           </div>
           <div class="avg-days freq-graph">
             <h3>Merge Frequency</h3>
+            <div class="arrow-left">
+              <div class="left-icon"></div>
+            </div>
+            <div class="arrow-right">
+              <div class="right-icon"></div>
+            </div>
             <div class="gb-graph">
-              <style>.gb-graph hr {width: 350px}</style> <!-- length of graph (100% = 7 data points @ 30px apart)-->
+              <style>.gb-graph hr {width: 350px}</style>
               <hr><hr><hr><hr>
             </div>
             <p id="freq-info"> Total-Merges / Day-Of-Total-Days</p>
