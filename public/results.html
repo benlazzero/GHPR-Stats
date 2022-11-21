@@ -63,11 +63,25 @@
             </div>
           </div>
           <div class="avg-days auth-avg">
-            <h3>Mergers</h3>
+            <h3>Merged By</h3>
             <div class="auth-perc-wrap">
               <svg class="progress-circle" width="200px" height="200px" xmlns="http://www.w3.org/2000/svg">
-                <circle class="progress-circle-back" cx="100" cy="100" r="74"></circle>
-                <circle class="progress-circle-front" cx="100" cy="100" r="74"></circle>
+                <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feComponentTransfer in=SourceAlpha>
+                    <feFuncA type="table" tableValues="2 0" />
+                  </feComponentTransfer>
+                  <feGaussianBlur stdDeviation="4"/>
+                  <feOffset dx="3" dy="5" result="offsetblur"/>
+                  <feFlood flood-color="rgb(0, 0, 0)" result="color"/>
+                  <feComposite in2="offsetblur" operator="in"/>
+                  <feComposite in2="SourceAlpha" operator="in" />
+                  <feMerge>
+                    <feMergeNode in="SourceGraphic" />
+                    <feMergeNode />
+                  </feMerge>
+                </filter>
+                <circle filter=url(#inset-shadow) class="progress-circle-back" cx="100" cy="100" r="85"></circle>
+                <circle class="progress-circle-front" cx="100" cy="100" r="85"></circle>
               </svg>
               <div class="percs-wrap">
                 <!--percent key: 0-->
