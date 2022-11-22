@@ -173,6 +173,13 @@ server.get('/results/:owner/:repo', async (req, res) => {
     let repoInfo = "<p>Repository: " + req.params.repo + "</p><p>Owner: " + req.params.owner + "</p>"
     after = finalHtml.slice(repoIndex+8)
     finalHtml = before + repoInfo + after
+    
+    // add repos url to the github link
+    let urlIndex = finalHtml.search("\"\">Github")
+    before = finalHtml.slice(0, urlIndex+1)
+    after = finalHtml.slice(urlIndex+1)
+    
+    finalHtml = before + cookies.url + after
     res.send(finalHtml)
   }))
 })
@@ -202,8 +209,9 @@ server.post('/', async (req, res) => {
   const total = cookie.serialize('total', open.total, {maxAge: 5});
   const oldest = cookie.serialize('oldest', open.oldest, {maxAge: 5});
   const newest = cookie.serialize('newest', open.newest, {maxAge: 5});
+  const url = cookie.serialize('url', req.body.url, {maxAge: 5});
   
-  res.setHeader('Set-Cookie', [percent, freq, names, avg, avgWk, total, oldest, newest])
+  res.setHeader('Set-Cookie', [percent, freq, names, avg, avgWk, total, oldest, newest, url])
   const repoName = parseUrl(req.body.url)
   res.redirect('/results/' + repoName[1] + '/' + repoName[2])
 })

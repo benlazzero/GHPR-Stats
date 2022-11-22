@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  position: fixed;
+  position: absolute;
   z-index: 0;
   left: 0;
   right: 0;
@@ -34,7 +34,7 @@ body::before {
   width: 100%;
   z-index: -1;
   background-color: #0b0b0b;
-  background-image: url("bgtransb.png");
+  background-image: url("/images/bgtransb.png");
   background-repeat: no-repeat;
   background-size: cover;
   filter: hue-rotate(0deg);
@@ -51,6 +51,14 @@ main {
 sup {
   font-weight: 400;
   font-size: .4em;
+}
+
+footer {
+  padding-bottom: 50px;
+}
+
+footer img:hover {
+  opacity: .5;
 }
 
 .index-header {
@@ -147,7 +155,8 @@ input[type=radio] {
   border-radius: 50%;
   margin-right: 6px;
   margin-left: 6px;
-  transform: translateY(0.175em);
+  transform: translateY(0.175em)c;
+  cursor: pointer;
 }
 
 input[type=radio]:checked {
@@ -183,6 +192,7 @@ input[type=radio]:checked {
   font-size: 1rem;
   box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.5);
   margin-bottom: 40px;
+  cursor: pointer;
 }
 
 .submit-btn:active {
@@ -206,14 +216,6 @@ a {
   justify-content: center;
 }
 
-button {
-  all: unset;
-  align-self: center;
-  color:#dedede;
-  padding-bottom: 40px;
-  font-weight: 400;
-}
-
 #spin-desc {
   padding-left: 20px;
   padding-right: 20px;
@@ -225,7 +227,7 @@ button {
   color: #ffffff;
 }
 
-#desc {
+#desc, #desc2 {
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 50px;
@@ -239,7 +241,7 @@ button {
 @media screen and (min-width: 498px) {
   .index-header {
     padding-left: 6em;  
-    margin-bottom: 60px;
+    margin-bottom: 10px;
   }
 
   .index-header h2 {
@@ -259,24 +261,14 @@ button {
     color: rgb(29, 29, 29);
   }
   
-  #spin-desc {
-    font-size: 40px;
-    line-height: unset;
-  }
-  
-  #desc {
+  #desc, #desc2, #spin-desc {
     font-size: 40px;
     line-height: unset;
   }
 }
 
 @media screen and (min-width: 800px) {
-  #spin-desc {
-    padding-left: 100px;
-    font-size: 50px;
-  }
-  
-  #desc {
+  #desc, #desc2, #spin-desc {
     padding-left: 100px;
     font-size: 50px;
   }
