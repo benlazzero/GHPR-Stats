@@ -14,7 +14,7 @@ const port = 3000
 server.use(express.static(path.join(__dirname, '../public')));
 server.use(bodyParser.urlencoded({ extended: true })) 
 
-server.get('/results/:repo', async (req, res) => {
+server.get('/results/:owner/:repo', async (req, res) => {
   const cookies = cookie.parse(req.headers.cookie || '');
   /*
   res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names + '<br>' + 
@@ -56,7 +56,7 @@ server.get('/results/:repo', async (req, res) => {
        
        let maintList = finalHtml.search("maint-l")
        before = finalHtml.slice(0, maintList + 12)
-       after = finalHtml.slice(maintList + 230)
+       after = finalHtml.slice(maintList + 234)
        let allMaints = ""
        
        for (let i = 0; i < allKeys.length; i++) {
@@ -70,15 +70,18 @@ server.get('/results/:repo', async (req, res) => {
       }
     }
     
+    let avgValue = cookies.value
+    let percentIndex = finalHtml.search("t-auth\">")
+    before = finalHtml.slice(0, percentIndex+8)
+    after = finalHtml.slice(percentIndex+8)
+    finalHtml = before + avgValue + "%" + after
     let keyIndex = finalHtml.search("-->")
     before = finalHtml.slice(0, keyIndex-1) 
-    let avgValue = cookies.value
-    let firstKey = '--><div class="authors"><div class="key-one"></div><span>Maintainers<br>%'
-    let secondKey = '</span></div><div class="authors"><div class="key-two"></div><span>Others<br>%'
-    let avgInverse = 100 - Number(avgValue)
+    let firstKey = '--><div class="authors"><div class="key-one"></div><span>Maintainers'
+    let secondKey = '</span></div><div class="authors"><div class="key-two"></div><span>Others'
     let thirdKey = '</span></div>'
     after = finalHtml.slice(keyIndex+4)
-    finalHtml = before + avgValue + firstKey + avgValue + secondKey + avgInverse + thirdKey + after
+    finalHtml = before + avgValue + firstKey + secondKey + thirdKey + after
     
     // freq graph set width based on keys
     let freqIndex = finalHtml.search("dth: ")
@@ -164,10 +167,12 @@ server.get('/results/:repo', async (req, res) => {
     }
     
     // insert repo name
-    let repoNameIndex = finalHtml.search("<h2>Repo")
-    before = finalHtml.slice(0, repoNameIndex+12)
-    after = finalHtml.slice(repoNameIndex+12)
-    finalHtml = before + req.params.repo + after
+    // req.params.repo and .owner
+    let repoIndex = finalHtml.search("ies</h3>")
+    before = finalHtml.slice(0, repoIndex+8)
+    let repoInfo = "<p>Repository: " + req.params.repo + "</p><p>Owner: " + req.params.owner + "</p>"
+    after = finalHtml.slice(repoIndex+8)
+    finalHtml = before + repoInfo + after
     res.send(finalHtml)
   }))
 })
@@ -182,12 +187,6 @@ server.post('/', async (req, res) => {
 
   const openPrData = await FetchPrs(openUrls) 
 
-  // rate limit exceeded
-  if (Object.keys(openPrData[0]).length === 2) {
-    console.log('oops')
-    res.redirect('/')
-    return
-  }
   const closedPrData = await FetchPrs(closedUrls)
 
   const newClosedPr = new ClosedPr(closedPrData, closedUrls, await req.body.logins)
@@ -206,7 +205,7 @@ server.post('/', async (req, res) => {
   
   res.setHeader('Set-Cookie', [percent, freq, names, avg, avgWk, total, oldest, newest])
   const repoName = parseUrl(req.body.url)
-  res.redirect('/results/' + repoName[2])
+  res.redirect('/results/' + repoName[1] + '/' + repoName[2])
 })
 
 server.listen(port, async () => {

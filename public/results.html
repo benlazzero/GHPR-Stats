@@ -13,79 +13,92 @@
   <body class="body-elm">
     <div>
       <header>
-        <h2>Repo<br></h2>
       </header>
       <main>
         <section>
-          <div class="avg-days">
-            <div class="avg-main">
-              <img class="merge-img" src="/mergec.png"> 
-              <h3 class="avg-value"></h3>
-              <h3 class="avg-desc">Days</h3>
-            </div>
-            <p class="avg-info">Average days for a pull request to merge</p>
-          </div>
-          <div class="avg-days">
-            <div class="avg-main">
-              <img class="merge-img" src="/openc.png"> 
-              <h3 class="avg-value" id="weekly"></h3>
-              <h3 class="avg-desc">New</h3>
-            </div>
-            <p class="avg-info">Average pull requests opened weekly</p>
-          </div>
-          <div class="avg-days open-stats">
-            <div class="open-header">
-              <h4>Open Pull Requests</h4>
-              <p class="avg-info">Draft pull requests are excluded</p>
-            </div>
-            <div class="circles">
-              <div class="big-circle">
-                <h3 id="bv"></h3>
-                <p>Total open</p>
+          <div class="merges-wrapper">
+            <div class="avg-days">
+              <div class="avg-main">
+                <img class="merge-img" src="/mergec.png"> 
+                <h3 class="avg-value"></h3>
+                <h3 class="avg-desc">Days</h3>
               </div>
-              <div class="med-circle">
-                <h3 id="mv"></h3>
-                <p>Newest pull</p>
+              <p class="avg-info">Average days for a pull request to merge</p>
+            </div>
+            <div class="avg-days">
+              <div class="avg-main">
+                <img class="merge-img" src="/openc.png"> 
+                <h3 class="avg-value" id="weekly"></h3>
+                <h3 class="avg-desc">New</h3>
               </div>
-              <div class="sm-circle">
-                <h3 id="sv"></h3>
-                <p>Oldest pull</p>
-              </div>
+              <p class="avg-info">Average pull requests opened weekly</p>
             </div>
           </div>
-          <div class="avg-days maintainers">
-            <h4>Maintainers</h4>
-            <div class="maint-list">
-              <div class="maint-one">
-                <img src="https://avatars.githubusercontent.com/u/85390423?v=4" alt="users profile picture">
-                <h3>No maintainers found</h3>
+          <div class="square-wrapper">
+            <div class="avg-days open-stats">
+              <div class="open-header">
+                <h4>Open Pull Requests</h4>
+                <p class="avg-info">Draft pull requests are excluded</p>
+              </div>
+              <div class="circles">
+                <div class="big-circle">
+                  <h3 id="bv"></h3>
+                  <p>Total open</p>
+                </div>
+                <div class="med-circle">
+                  <h3 id="mv"></h3>
+                  <p>Newest pull</p>
+                </div>
+                <div class="sm-circle">
+                  <h3 id="sv"></h3>
+                  <p>Oldest pull</p>
+                </div>
+              </div>
+            </div>
+            <div class="avg-days auth-avg">
+              <h3>Merged By</h3>
+              <p class="percent-auth"></p>
+              <div class="auth-perc-wrap">
+                <svg class="progress-circle" width="200px" height="200px" xmlns="http://www.w3.org/2000/svg">
+                  <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feComponentTransfer in=SourceAlpha>
+                      <feFuncA type="table" tableValues="2 0" />
+                    </feComponentTransfer>
+                    <feGaussianBlur stdDeviation="4"/>
+                    <feOffset dx="3" dy="5" result="offsetblur"/>
+                    <feFlood flood-color="rgb(0, 0, 0)" result="color"/>
+                    <feComposite in2="offsetblur" operator="in"/>
+                    <feComposite in2="SourceAlpha" operator="in" />
+                    <feMerge>
+                      <feMergeNode in="SourceGraphic" />
+                      <feMergeNode />
+                    </feMerge>
+                  </filter>
+                  <circle filter=url(#inset-shadow) class="progress-circle-back" cx="100" cy="100" r="85"></circle>
+                  <circle class="progress-circle-front" cx="100" cy="100" r="85"></circle>
+                </svg>
+                <div class="percs-wrap">
+                  <!--percent key: 0-->
+                </div> 
               </div>
             </div>
           </div>
-          <div class="avg-days auth-avg">
-            <h3>Merged By</h3>
-            <div class="auth-perc-wrap">
-              <svg class="progress-circle" width="200px" height="200px" xmlns="http://www.w3.org/2000/svg">
-                <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feComponentTransfer in=SourceAlpha>
-                    <feFuncA type="table" tableValues="2 0" />
-                  </feComponentTransfer>
-                  <feGaussianBlur stdDeviation="4"/>
-                  <feOffset dx="3" dy="5" result="offsetblur"/>
-                  <feFlood flood-color="rgb(0, 0, 0)" result="color"/>
-                  <feComposite in2="offsetblur" operator="in"/>
-                  <feComposite in2="SourceAlpha" operator="in" />
-                  <feMerge>
-                    <feMergeNode in="SourceGraphic" />
-                    <feMergeNode />
-                  </feMerge>
-                </filter>
-                <circle filter=url(#inset-shadow) class="progress-circle-back" cx="100" cy="100" r="85"></circle>
-                <circle class="progress-circle-front" cx="100" cy="100" r="85"></circle>
-              </svg>
-              <div class="percs-wrap">
-                <!--percent key: 0-->
-              </div> 
+          <div class="bottom-wrapper">
+            <div class="avg-days maintainers">
+              <h4>Maintainers</h4>
+              <div class="maint-list">
+                <div class="maint-one">
+                  <img src="https://avatars.githubusercontent.com/u/85390423?v=4" alt="users profile picture">
+                  <h3>No maintainers found</h3>
+                </div>
+              </div>
+            </div>
+            <div class="avg-days infocard">
+             <h3>Utilities</h3>  
+             <div class="info-links">
+               <a href="/">New search</a>
+               <a href="https://github.com/benlazzero/GHPR-Stats">Github</a>
+             </div>
             </div>
           </div>
           <div class="avg-days freq-graph">
@@ -107,9 +120,4 @@
     </div>
   <script src="/results.js"></script>
   </body>
-  <footer class="footer">
-    <a class="ghlink" href="https://github.com/benlazzero/GHPR-Stats" target="_blank" rel="noopener noreferrer">GitHub
-      <img class="icon" src="/link.png" alt="icon of an arrow leaving a square, show this is an external link">
-    </a>
-  </footer>
 </html>

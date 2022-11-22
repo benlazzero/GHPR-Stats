@@ -37,3 +37,18 @@ function reportWindowSize() {
 }
 
 window.onresize = reportWindowSize;
+
+// positioning the percent in circle graph
+function positionPercent() {
+  let percentElm = document.getElementsByClassName("percent-auth")
+  let length = percentElm[0].outerText.length
+  if (length === 2) {
+    percentElm[0].style.left = "92px"
+  } else if (length === 3) {
+    percentElm[0].style.left = "76px"
+  } else {
+    percentElm[0].style.left = "62px"
+  }
+}
+
+positionPercent()

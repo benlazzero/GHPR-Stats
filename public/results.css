@@ -3,6 +3,10 @@ html {
   color: #e4e4e4;
 }
 
+header {
+  padding-bottom: 40px;
+}
+
 body {
   position: relative;
 }
@@ -25,7 +29,6 @@ main {
   max-width: 400px;
   min-width: 350px;
   height: 200px;
-  margin-top: 40px;
   border-radius: 10px;
   order: 3;
   border: 0.5px solid #5C5C5C;
@@ -66,7 +69,7 @@ main {
 
 .open-stats {
   align-items: center;
-  height: 340px;
+  height: 350px;
 }
 
 .open-header {
@@ -204,6 +207,7 @@ main {
 }
 
 .auth-avg {
+  position: relative;
   height: 350px;
   padding-bottom: 30px;
 }
@@ -325,7 +329,7 @@ main {
   align-items: center;
   justify-content: flex-end;
   height: 110%;
-  width: 93%;
+  width: 90%;
   align-self: center;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -422,13 +426,107 @@ main {
   border-left: 8px solid #5050ca; 
 }
 
+.square-wrapper {
+  gap: 1px;
+  order: 3;
+}
+
+.merges-wrapper {
+  order: 2;
+}
+
+.percent-auth{
+  font-size: 3rem;
+  color: #07d332;
+  position: absolute;
+  top: 179px;
+  left: 90px;
+  text-shadow: 1px 1px #ffffff00, -1px -1px #5e5eb6;
+}
+
+.infocard {
+  max-height: 350px;
+  min-height: 350px;
+}
+
+.infocard h3 {
+  font-size: 1.5rem;
+  margin-top: 40px;
+  align-self: flex-start;
+  margin-left: 13%;
+}
+
+.infocard p {
+  margin-left: 13%;
+  text-align: left;
+  margin-top: 20px;
+  font-size: .9rem;
+  font-weight: 400;
+  color: #a5a5a5;
+}
+
+.info-links {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+.info-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-top: 20px;
+  align-self: center;
+  width: 50%;
+  border-radius: 5px;
+  border: 2px solid #376d42;
+  color: #e4e4e4;
+  background-color: #07d33221;
+}
+
+.info-links a:hover {
+  background-color: #07d333c9;
+}
+
+.info-links a:nth-child(2) {
+  background-color: #5e5eb657;
+  border-color: #5e5eb5;
+}
+
+.info-links a:nth-child(2):hover {
+  background-color: #5454b7f4;
+}
+
 @media screen and (min-width: 701px) {
   .freq-graph {
     min-width: 700px;
   }
   
+  .gb-graph {
+    width: 93%;
+  }
+  
   .arrow-right {
     left: 96.7%;
+  }
+  
+  .merges-wrapper {
+    display: flex;
+  }
+  
+  .square-wrapper {
+    display: flex;
+  }
+  
+  .bottom-wrapper {
+    display: flex;
+  }
+  
+}
+
+@media screen and (min-width: 1700px) {
+  .avg-days {
+    margin: 10px;
   }
   
 }
