@@ -1,5 +1,13 @@
 
-const submitHandler = () => {
+const submitHandler = (event) => {
+  let input = document.getElementsByClassName("repo-search")[0]
+  
+  if (input.value.search("https://github.com/") == -1 ) {
+    event.preventDefault()
+    document.getElementById("flash-bad").style.display = "block"
+    return
+  }
+
   let main = document.getElementById("main")      
   let header = document.querySelector(".index-header")      
   let body = document.getElementById("body-elm")

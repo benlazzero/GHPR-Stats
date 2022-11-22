@@ -22,7 +22,10 @@ server.get('/results/:owner/:repo', async (req, res) => {
   '/total open: ' + cookies.total + '/oldest pr: ' + cookies.oldest + '/newest pr: ' + cookies.newest)
   */
   fs.readFile('/Users/benlazzeroni/projects/ghprstats/new/GHPR-Stats/public/results.html', 'utf8', ((err, data) => {
-    console.log(req.params.repo) // repos name
+    if (Object.keys(cookies).length ===0) {
+      res.redirect('/')
+      return
+    }
 
     let valueIndex = data.search("ue\"")
     let before = data.slice(0, valueIndex+4)
@@ -215,6 +218,10 @@ server.post('/', async (req, res) => {
   const repoName = parseUrl(req.body.url)
   res.redirect('/results/' + repoName[1] + '/' + repoName[2])
 })
+
+server.get('*', function(req, res){
+  res.status(404).send('what???');
+});
 
 server.listen(port, async () => {
   console.log(`server listening on port ${port}`)
