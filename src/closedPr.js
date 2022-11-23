@@ -172,6 +172,9 @@ class ClosedPr {
       total += samples[i]
     }
 
+    if (total === 0) {
+      return 0
+    }
     return Math.round(total / samples.length)
   }
   
@@ -268,6 +271,10 @@ class ClosedPr {
         total += weeklyTotals[i]
       }
       
+      if (total === 0){
+        return total
+      }
+
       return Math.round(total / weeklyTotals.length)
     })(weeklyTotals)
     

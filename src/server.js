@@ -15,14 +15,14 @@ server.use(express.static(path.join(__dirname, '../public')));
 server.use(bodyParser.urlencoded({ extended: true })) 
 
 server.get('/results/:owner/:repo', async (req, res) => {
-  const cookies = cookie.parse(req.headers.cookie || '');
+  let cookies = cookie.parse(req.headers.cookie || '');
   /*
   res.send(cookies.value +'%' + '<br>' + cookies.freq + '<br>' + cookies.names + '<br>' + 
   'days: ' + cookies.avg + '<br>' + 'avg weekly: ' + cookies.avgWk + 
   '/total open: ' + cookies.total + '/oldest pr: ' + cookies.oldest + '/newest pr: ' + cookies.newest)
   */
   fs.readFile('/Users/benlazzeroni/projects/ghprstats/new/GHPR-Stats/public/results.html', 'utf8', ((err, data) => {
-    if (Object.keys(cookies).length ===0) {
+    if (Object.keys(cookies).length < 3) {
       res.redirect('/')
       return
     }
