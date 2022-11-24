@@ -7,12 +7,19 @@ const FetchPrs = require('./apiFetch')
 const ClosedPr = require('./closedPr')
 const OpenPr = require('./openPr')
 const fs = require('node:fs')
+const https = require('https')
+const http = require('http')
 
+const serverHttp = express()
 const server = express()
-const port = 3000
+const port = 443
 
 server.use(express.static(path.join(__dirname, '../public')));
 server.use(bodyParser.urlencoded({ extended: true })) 
+
+serverHttp.get('*', (req, res) => {
+  res.redirect('https://codecafeteria.com')
+})
 
 server.get('/results/:owner/:repo', async (req, res) => {
   /*
@@ -28,7 +35,7 @@ server.get('/results/:owner/:repo', async (req, res) => {
     return
   }
 
-  fs.readFile('/Users/benlazzeroni/projects/ghprstats/new/GHPR-Stats/public/results.html', 'utf8', ((err, data) => {
+  fs.readFile('/home/ben/GHPR-Stats/public/results.html', 'utf8', ((err, data) => {
     if (Object.keys(cookies).length < 3) {
       res.redirect('/')
       return
@@ -227,9 +234,21 @@ server.post('/', async (req, res) => {
 })
 
 server.get('*', function(req, res){
-  res.status(404).send('what???');
+  res.redirect('/');
 });
 
-server.listen(port, async () => {
+const sslServer = https.createServer(
+	{
+		key: fs.readFileSync(path.join(__dirname, '../ssl', 'privkey.pem')),
+		cert: fs.readFileSync(path.join(__dirname, '../ssl', 'cert.pem')),
+	},
+	server
+)
+
+serverHttp.listen(80, () => {
+  console.log('http serv')
+})
+
+sslServer.listen(port, () => {
   console.log(`server listening on port ${port}`)
 })

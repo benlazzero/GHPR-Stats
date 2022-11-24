@@ -1,4 +1,22 @@
+// check for cookies
 
+let isCookie = (() => {
+  document.cookie = "test=test"
+  let dCookie = decodeURIComponent(document.cookie)
+  if (dCookie === "test=test") {
+    document.cookie = "test=test; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    return
+  }
+  // please enable cookies logic
+  let button = document.getElementById("sub-btn")
+  let flash = document.getElementById("flash-bad")
+  button.disabled = true;
+  flash.innerText = 'Please enable cookies to proceed'
+  flash.style.display = 'block'
+})()
+
+
+// form submit animation 
 const submitHandler = (event) => {
   let input = document.getElementsByClassName("repo-search")[0]
   
